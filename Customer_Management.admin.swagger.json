@@ -1,0 +1,1186 @@
+{
+    "swagger": "2.0", 
+    "info": {
+        "title": "Customer Management", 
+        "description": "This is Swagger UI environment generated for the TMF Customer Management specification", 
+        "version": "2.0"
+    }, 
+    "host": "biologeek.orange-labs.fr", 
+    "basePath": "/tmf-api/customerManagement/v3/", 
+    "schemes": [
+        "https"
+    ], 
+    "consumes": [
+        "application/json"
+    ], 
+    "produces": [
+        "application/json"
+    ], 
+    "paths": {
+        "/customer": {
+            "get": {
+                "operationId": "listCustomer", 
+                "summary": "List or find 'Customer' objects", 
+                "tags": [
+                    "customer"
+                ], 
+                "parameters": [
+                    {
+                        "type": "string", 
+                        "required": false, 
+                        "in": "query", 
+                        "name": "fields", 
+                        "description": "Comma separated properties to display in response"
+                    }, 
+                    {
+                        "type": "integer", 
+                        "required": false, 
+                        "in": "query", 
+                        "name": "offset", 
+                        "description": "Requested index for start of resources to be provided in response"
+                    }, 
+                    {
+                        "type": "integer", 
+                        "required": false, 
+                        "in": "query", 
+                        "name": "limit", 
+                        "description": "Requested number of resources to be provided in response"
+                    }, 
+                    {
+                        "in": "query", 
+                        "type": "string", 
+                        "name": "name", 
+                        "description": "For filtering on the base of 'name' field (equality)"
+                    }, 
+                    {
+                        "in": "query", 
+                        "type": "string", 
+                        "name": "status", 
+                        "description": "For filtering on the base of 'status' field (equality)"
+                    }, 
+                    {
+                        "in": "query", 
+                        "type": "string", 
+                        "name": "statusReason", 
+                        "description": "For filtering on the base of 'statusReason' field (equality)"
+                    }, 
+                    {
+                        "format": "date-time", 
+                        "in": "query", 
+                        "type": "string", 
+                        "name": "validFor.endDateTime", 
+                        "description": "For filtering on the base of 'endDateTime' field (equality)"
+                    }, 
+                    {
+                        "name": "validFor.endDateTime.gt", 
+                        "description": "For filtering on the base of 'endDateTime' field (great than)", 
+                        "type": "string", 
+                        "format": "date-time", 
+                        "in": "query"
+                    }, 
+                    {
+                        "name": "validFor.endDateTime.lt", 
+                        "description": "For filtering on the base of 'endDateTime' field (less than)", 
+                        "type": "string", 
+                        "format": "date-time", 
+                        "in": "query"
+                    }, 
+                    {
+                        "format": "date-time", 
+                        "in": "query", 
+                        "type": "string", 
+                        "name": "validFor.startDateTime", 
+                        "description": "For filtering on the base of 'startDateTime' field (equality)"
+                    }, 
+                    {
+                        "name": "validFor.startDateTime.gt", 
+                        "description": "For filtering on the base of 'startDateTime' field (great than)", 
+                        "type": "string", 
+                        "format": "date-time", 
+                        "in": "query"
+                    }, 
+                    {
+                        "name": "validFor.startDateTime.lt", 
+                        "description": "For filtering on the base of 'startDateTime' field (less than)", 
+                        "type": "string", 
+                        "format": "date-time", 
+                        "in": "query"
+                    }, 
+                    {
+                        "in": "query", 
+                        "type": "string", 
+                        "name": "engagedParty.name", 
+                        "description": "For filtering on the base of 'name' field (equality)"
+                    }, 
+                    {
+                        "in": "query", 
+                        "type": "string", 
+                        "name": "type.name", 
+                        "description": "For filtering on the base of 'name' field (equality)"
+                    }, 
+                    {
+                        "in": "query", 
+                        "type": "string", 
+                        "name": "type.partnershipHref", 
+                        "description": "For filtering on the base of 'partnershipHref' field (equality)"
+                    }, 
+                    {
+                        "in": "query", 
+                        "type": "string", 
+                        "name": "type.partnershipId", 
+                        "description": "For filtering on the base of 'partnershipId' field (equality)"
+                    }, 
+                    {
+                        "in": "query", 
+                        "type": "string", 
+                        "name": "type.partnershipName", 
+                        "description": "For filtering on the base of 'partnershipName' field (equality)"
+                    }, 
+                    {
+                        "in": "query", 
+                        "type": "string", 
+                        "name": "account.name", 
+                        "description": "For filtering on the base of 'name' field (equality)"
+                    }, 
+                    {
+                        "in": "query", 
+                        "type": "string", 
+                        "name": "paymentMethod.name", 
+                        "description": "For filtering on the base of 'name' field (equality)"
+                    }, 
+                    {
+                        "in": "query", 
+                        "type": "boolean", 
+                        "name": "contactMedium.preferred", 
+                        "description": "For filtering on the base of 'preferred' field (equality)"
+                    }, 
+                    {
+                        "in": "query", 
+                        "type": "string", 
+                        "name": "contactMedium.type", 
+                        "description": "For filtering on the base of 'type' field (equality)"
+                    }, 
+                    {
+                        "in": "query", 
+                        "type": "string", 
+                        "name": "characteristic.name", 
+                        "description": "For filtering on the base of 'name' field (equality)"
+                    }, 
+                    {
+                        "in": "query", 
+                        "type": "string", 
+                        "name": "characteristic.value", 
+                        "description": "For filtering on the base of 'value' field (equality)"
+                    }, 
+                    {
+                        "format": "date-time", 
+                        "in": "query", 
+                        "type": "string", 
+                        "name": "creditProfile.creditProfileDate", 
+                        "description": "For filtering on the base of 'creditProfileDate' field (equality)"
+                    }, 
+                    {
+                        "name": "creditProfile.creditProfileDate.gt", 
+                        "description": "For filtering on the base of 'creditProfileDate' field (great than)", 
+                        "type": "string", 
+                        "format": "date-time", 
+                        "in": "query"
+                    }, 
+                    {
+                        "name": "creditProfile.creditProfileDate.lt", 
+                        "description": "For filtering on the base of 'creditProfileDate' field (less than)", 
+                        "type": "string", 
+                        "format": "date-time", 
+                        "in": "query"
+                    }, 
+                    {
+                        "in": "query", 
+                        "type": "integer", 
+                        "name": "creditProfile.creditRiskRating", 
+                        "description": "For filtering on the base of 'creditRiskRating' field (equality)"
+                    }, 
+                    {
+                        "name": "creditProfile.creditRiskRating.gt", 
+                        "description": "For filtering on the base of 'creditRiskRating' field (great than)", 
+                        "type": "integer", 
+                        "in": "query"
+                    }, 
+                    {
+                        "name": "creditProfile.creditRiskRating.lt", 
+                        "description": "For filtering on the base of 'creditRiskRating' field (less than)", 
+                        "type": "integer", 
+                        "in": "query"
+                    }, 
+                    {
+                        "in": "query", 
+                        "type": "integer", 
+                        "name": "creditProfile.creditScore", 
+                        "description": "For filtering on the base of 'creditScore' field (equality)"
+                    }, 
+                    {
+                        "name": "creditProfile.creditScore.gt", 
+                        "description": "For filtering on the base of 'creditScore' field (great than)", 
+                        "type": "integer", 
+                        "in": "query"
+                    }, 
+                    {
+                        "name": "creditProfile.creditScore.lt", 
+                        "description": "For filtering on the base of 'creditScore' field (less than)", 
+                        "type": "integer", 
+                        "in": "query"
+                    }, 
+                    {
+                        "in": "query", 
+                        "type": "string", 
+                        "name": "agreement.@referredType", 
+                        "description": "For filtering on the base of '@referredType' field (equality)"
+                    }, 
+                    {
+                        "in": "query", 
+                        "type": "string", 
+                        "name": "agreement.name", 
+                        "description": "For filtering on the base of 'name' field (equality)"
+                    }, 
+                    {
+                        "in": "query", 
+                        "type": "string", 
+                        "name": "relatedParty.@referredType", 
+                        "description": "For filtering on the base of '@referredType' field (equality)"
+                    }, 
+                    {
+                        "in": "query", 
+                        "type": "string", 
+                        "name": "relatedParty.name", 
+                        "description": "For filtering on the base of 'name' field (equality)"
+                    }, 
+                    {
+                        "in": "query", 
+                        "type": "string", 
+                        "name": "relatedParty.role", 
+                        "description": "For filtering on the base of 'role' field (equality)"
+                    }
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Ok", 
+                        "schema": {
+                            "items": {
+                                "$ref": "#/definitions/Customer"
+                            }, 
+                            "type": "array"
+                        }
+                    }, 
+                    "400": {
+                        "description": "Bad Request", 
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }, 
+                    "500": {
+                        "description": "Internal Server Error", 
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }, 
+            "post": {
+                "operationId": "createCustomer", 
+                "summary": "Creates a 'Customer'", 
+                "tags": [
+                    "customer"
+                ], 
+                "parameters": [
+                    {
+                        "schema": {
+                            "$ref": "#/definitions/Customer_Create"
+                        }, 
+                        "required": true, 
+                        "in": "body", 
+                        "name": "customer", 
+                        "description": "The Customer to be created"
+                    }
+                ], 
+                "responses": {
+                    "201": {
+                        "description": "Created", 
+                        "schema": {
+                            "$ref": "#/definitions/Customer"
+                        }
+                    }, 
+                    "400": {
+                        "description": "Bad Request", 
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }, 
+                    "500": {
+                        "description": "Internal Server Error", 
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        }, 
+        "/customer/{id}": {
+            "get": {
+                "operationId": "retrieveCustomer", 
+                "summary": "Retrieves a 'Customer' by Id", 
+                "tags": [
+                    "customer"
+                ], 
+                "parameters": [
+                    {
+                        "required": true, 
+                        "type": "string", 
+                        "name": "id", 
+                        "in": "path", 
+                        "description": "Identifier of the Customer"
+                    }
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Ok", 
+                        "schema": {
+                            "items": {
+                                "$ref": "#/definitions/Customer"
+                            }, 
+                            "type": "array"
+                        }
+                    }, 
+                    "400": {
+                        "description": "Bad Request", 
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }, 
+                    "404": {
+                        "description": "Not Found", 
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }, 
+                    "500": {
+                        "description": "Internal Server Error", 
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }, 
+            "patch": {
+                "operationId": "patchCustomer", 
+                "summary": "Updates partially a 'Customer' by Id", 
+                "tags": [
+                    "customer"
+                ], 
+                "parameters": [
+                    {
+                        "required": true, 
+                        "type": "string", 
+                        "name": "id", 
+                        "in": "path", 
+                        "description": "Identifier of the Customer"
+                    }, 
+                    {
+                        "schema": {
+                            "$ref": "#/definitions/Customer_Update"
+                        }, 
+                        "required": true, 
+                        "in": "body", 
+                        "name": "customer", 
+                        "description": "The Customer to be updated"
+                    }
+                ], 
+                "responses": {
+                    "201": {
+                        "description": "Updated", 
+                        "schema": {
+                            "$ref": "#/definitions/Customer"
+                        }
+                    }, 
+                    "400": {
+                        "description": "Bad Request", 
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }, 
+                    "404": {
+                        "description": "Not Found", 
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }, 
+                    "500": {
+                        "description": "Internal Server Error", 
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }, 
+            "delete": {
+                "operationId": "deleteCustomer", 
+                "summary": "Deletes a 'Customer' by Id", 
+                "tags": [
+                    "customer"
+                ], 
+                "parameters": [
+                    {
+                        "required": true, 
+                        "type": "string", 
+                        "name": "id", 
+                        "in": "path", 
+                        "description": "Identifier of the Customer"
+                    }
+                ], 
+                "responses": {
+                    "204": {
+                        "description": "Deleted"
+                    }, 
+                    "400": {
+                        "description": "Bad Request", 
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }, 
+                    "404": {
+                        "description": "Not Found", 
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }, 
+                    "500": {
+                        "description": "Internal Server Error", 
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        }, 
+        "/hub": {
+            "post": {
+                "operationId": "registerListener", 
+                "summary": "Register a listener", 
+                "description": "Sets the communication endpoint address the service instance must use to deliver information about its health state, execution state, failures and metrics.", 
+                "tags": [
+                    "events subscription"
+                ], 
+                "parameters": [
+                    {
+                        "name": "data", 
+                        "schema": {
+                            "$ref": "#/definitions/EventSubscriptionInput"
+                        }, 
+                        "required": true, 
+                        "in": "body", 
+                        "description": "Data containing the callback endpoint to deliver the information"
+                    }
+                ], 
+                "responses": {
+                    "201": {
+                        "description": "Subscribed", 
+                        "schema": {
+                            "$ref": "#/definitions/EventSubscription"
+                        }
+                    }, 
+                    "500": {
+                        "description": "Internal Server Error", 
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }, 
+                    "400": {
+                        "description": "Bad Request", 
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        }, 
+        "/hub/{id}": {
+            "delete": {
+                "operationId": "unregisterListener", 
+                "summary": "Unregister a listener", 
+                "description": "Resets the communication endpoint address the service instance must use to deliver information about its health state, execution state, failures and metrics.", 
+                "tags": [
+                    "events subscription"
+                ], 
+                "parameters": [
+                    {
+                        "name": "id", 
+                        "type": "string", 
+                        "required": true, 
+                        "in": "path", 
+                        "description": "The id of the registered listener"
+                    }
+                ], 
+                "responses": {
+                    "201": {
+                        "description": "Unsubscribed"
+                    }, 
+                    "404": {
+                        "description": "Not Found", 
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }, 
+                    "500": {
+                        "description": "Internal Server Error", 
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        }
+    }, 
+    "definitions": {
+        "Customer": {
+            "type": "object", 
+            "properties": {
+                "href": {
+                    "type": "string", 
+                    "description": "Url used to reference the party role."
+                }, 
+                "id": {
+                    "type": "string", 
+                    "description": "Unique identifier for PartyRoles"
+                }, 
+                "name": {
+                    "type": "string", 
+                    "description": "A word, term, or phrase by which the PartyRole is known and distinguished from other PartyRoles."
+                }, 
+                "status": {
+                    "type": "string", 
+                    "description": "Used to track the lifecycle status of the party role."
+                }, 
+                "statusReason": {
+                    "type": "string", 
+                    "description": "A string providing an explanation on the value of the status lifecycle. For instance if the status is Rejected, statusReason will provide the reason for rejection."
+                }, 
+                "validFor": {
+                    "$ref": "#/definitions/TimePeriod", 
+                    "description": "The time period that the PartyRole is valid for."
+                }, 
+                "engagedParty": {
+                    "$ref": "#/definitions/PartyRef"
+                }, 
+                "type": {
+                    "$ref": "#/definitions/RoleTypeRef"
+                }, 
+                "account": {
+                    "type": "array", 
+                    "items": {
+                        "$ref": "#/definitions/AccountRef"
+                    }
+                }, 
+                "paymentMethod": {
+                    "type": "array", 
+                    "items": {
+                        "$ref": "#/definitions/PaymentMethodRef"
+                    }
+                }, 
+                "contactMedium": {
+                    "type": "array", 
+                    "items": {
+                        "$ref": "#/definitions/ContactMedium"
+                    }
+                }, 
+                "characteristic": {
+                    "type": "array", 
+                    "items": {
+                        "$ref": "#/definitions/Characteristic"
+                    }
+                }, 
+                "creditProfile": {
+                    "type": "array", 
+                    "items": {
+                        "$ref": "#/definitions/CreditProfile"
+                    }
+                }, 
+                "agreement": {
+                    "type": "array", 
+                    "items": {
+                        "$ref": "#/definitions/AgreementRef"
+                    }
+                }, 
+                "relatedParty": {
+                    "type": "array", 
+                    "items": {
+                        "$ref": "#/definitions/RelatedPartyRef"
+                    }
+                }, 
+                "@type": {
+                    "type": "string", 
+                    "description": "The class type of the actual resource (for type extension)."
+                }, 
+                "@schemaLocation": {
+                    "type": "string", 
+                    "description": "A link to the schema describing a resource (for type extension)."
+                }, 
+                "@baseType": {
+                    "type": "string", 
+                    "description": "The base type for use in polymorphic collections"
+                }
+            }
+        }, 
+        "Customer_Create": {
+            "type": "object", 
+            "description": "\nSkipped properties: id,href", 
+            "required": [
+                "name"
+            ], 
+            "properties": {
+                "name": {
+                    "type": "string", 
+                    "description": "A word, term, or phrase by which the PartyRole is known and distinguished from other PartyRoles."
+                }, 
+                "status": {
+                    "type": "string", 
+                    "description": "Used to track the lifecycle status of the party role."
+                }, 
+                "statusReason": {
+                    "type": "string", 
+                    "description": "A string providing an explanation on the value of the status lifecycle. For instance if the status is Rejected, statusReason will provide the reason for rejection."
+                }, 
+                "validFor": {
+                    "$ref": "#/definitions/TimePeriod", 
+                    "description": "The time period that the PartyRole is valid for."
+                }, 
+                "engagedParty": {
+                    "$ref": "#/definitions/PartyRef"
+                }, 
+                "type": {
+                    "$ref": "#/definitions/RoleTypeRef"
+                }, 
+                "account": {
+                    "type": "array", 
+                    "items": {
+                        "$ref": "#/definitions/AccountRef"
+                    }
+                }, 
+                "paymentMethod": {
+                    "type": "array", 
+                    "items": {
+                        "$ref": "#/definitions/PaymentMethodRef"
+                    }
+                }, 
+                "contactMedium": {
+                    "type": "array", 
+                    "items": {
+                        "$ref": "#/definitions/ContactMedium"
+                    }
+                }, 
+                "characteristic": {
+                    "type": "array", 
+                    "items": {
+                        "$ref": "#/definitions/Characteristic"
+                    }
+                }, 
+                "creditProfile": {
+                    "type": "array", 
+                    "items": {
+                        "$ref": "#/definitions/CreditProfile"
+                    }
+                }, 
+                "agreement": {
+                    "type": "array", 
+                    "items": {
+                        "$ref": "#/definitions/AgreementRef"
+                    }
+                }, 
+                "relatedParty": {
+                    "type": "array", 
+                    "items": {
+                        "$ref": "#/definitions/RelatedPartyRef"
+                    }
+                }, 
+                "@type": {
+                    "type": "string", 
+                    "description": "The class type of the actual resource (for type extension)."
+                }, 
+                "@schemaLocation": {
+                    "type": "string", 
+                    "description": "A link to the schema describing a resource (for type extension)."
+                }, 
+                "@baseType": {
+                    "type": "string", 
+                    "description": "The base type for use in polymorphic collections"
+                }
+            }
+        }, 
+        "Customer_Update": {
+            "type": "object", 
+            "description": "\nSkipped properties: id,href,id,href", 
+            "properties": {
+                "name": {
+                    "type": "string", 
+                    "description": "A word, term, or phrase by which the PartyRole is known and distinguished from other PartyRoles."
+                }, 
+                "status": {
+                    "type": "string", 
+                    "description": "Used to track the lifecycle status of the party role."
+                }, 
+                "statusReason": {
+                    "type": "string", 
+                    "description": "A string providing an explanation on the value of the status lifecycle. For instance if the status is Rejected, statusReason will provide the reason for rejection."
+                }, 
+                "validFor": {
+                    "$ref": "#/definitions/TimePeriod", 
+                    "description": "The time period that the PartyRole is valid for."
+                }, 
+                "engagedParty": {
+                    "$ref": "#/definitions/PartyRef"
+                }, 
+                "type": {
+                    "$ref": "#/definitions/RoleTypeRef"
+                }, 
+                "account": {
+                    "type": "array", 
+                    "items": {
+                        "$ref": "#/definitions/AccountRef"
+                    }
+                }, 
+                "paymentMethod": {
+                    "type": "array", 
+                    "items": {
+                        "$ref": "#/definitions/PaymentMethodRef"
+                    }
+                }, 
+                "contactMedium": {
+                    "type": "array", 
+                    "items": {
+                        "$ref": "#/definitions/ContactMedium"
+                    }
+                }, 
+                "characteristic": {
+                    "type": "array", 
+                    "items": {
+                        "$ref": "#/definitions/Characteristic"
+                    }
+                }, 
+                "creditProfile": {
+                    "type": "array", 
+                    "items": {
+                        "$ref": "#/definitions/CreditProfile"
+                    }
+                }, 
+                "agreement": {
+                    "type": "array", 
+                    "items": {
+                        "$ref": "#/definitions/AgreementRef"
+                    }
+                }, 
+                "relatedParty": {
+                    "type": "array", 
+                    "items": {
+                        "$ref": "#/definitions/RelatedPartyRef"
+                    }
+                }, 
+                "@type": {
+                    "type": "string", 
+                    "description": "The class type of the actual resource (for type extension)."
+                }, 
+                "@schemaLocation": {
+                    "type": "string", 
+                    "description": "A link to the schema describing a resource (for type extension)."
+                }, 
+                "@baseType": {
+                    "type": "string", 
+                    "description": "The base type for use in polymorphic collections"
+                }
+            }
+        }, 
+        "TimePeriod": {
+            "type": "object", 
+            "description": "A base / value business entity used to represent a period of time between two timepoints.", 
+            "properties": {
+                "endDateTime": {
+                    "type": "string", 
+                    "format": "date-time", 
+                    "description": "An instant of time, ending at the TimePeriod."
+                }, 
+                "startDateTime": {
+                    "type": "string", 
+                    "format": "date-time", 
+                    "description": "An instant of time, starting at the TimePeriod"
+                }
+            }
+        }, 
+        "PartyRef": {
+            "type": "object", 
+            "description": "Party reference. A party represents an organization or an individual.", 
+            "properties": {
+                "description": {
+                    "type": "string", 
+                    "description": "Text describing the referred party"
+                }, 
+                "href": {
+                    "type": "string", 
+                    "description": "Reference of the referred party (such as a partner or any other party role)."
+                }, 
+                "id": {
+                    "type": "string", 
+                    "description": "Unique identifier of the referred party"
+                }, 
+                "name": {
+                    "type": "string", 
+                    "description": "Name of the referred party (such as a partner or any other party role)"
+                }, 
+                "@referredType": {
+                    "type": "string", 
+                    "description": "The actual type of the target instance when needed for disambiguation."
+                }
+            }
+        }, 
+        "RoleTypeRef": {
+            "type": "object", 
+            "description": "RoleType reference.", 
+            "properties": {
+                "name": {
+                    "type": "string", 
+                    "description": "The name of the role type. It uniquely identifies the role type within the partnership type."
+                }, 
+                "partnershipHref": {
+                    "type": "string", 
+                    "description": "Reference url of the partnership type containing the role type"
+                }, 
+                "partnershipId": {
+                    "type": "string", 
+                    "description": "The identifier of the partnership type containing the role type"
+                }, 
+                "partnershipName": {
+                    "type": "string", 
+                    "description": "The name of the partnership type defining this role type"
+                }, 
+                "@referredType": {
+                    "type": "string", 
+                    "description": "The actual type of the target instance when needed for disambiguation."
+                }
+            }
+        }, 
+        "AccountRef": {
+            "type": "object", 
+            "description": "Account reference. A account may be a party account or a financial account.", 
+            "properties": {
+                "description": {
+                    "type": "string", 
+                    "description": "Detailed description of the account"
+                }, 
+                "href": {
+                    "type": "string", 
+                    "description": "Reference of the account"
+                }, 
+                "id": {
+                    "type": "string", 
+                    "description": "Unique identifier of the account"
+                }, 
+                "name": {
+                    "type": "string", 
+                    "description": "Name of the account"
+                }, 
+                "@referredType": {
+                    "type": "string", 
+                    "description": "The actual type of the target instance when needed for disambiguation."
+                }
+            }
+        }, 
+        "PaymentMethodRef": {
+            "type": "object", 
+            "description": "PaymentMethod reference. A payment method defines a specific mean of payment (e.g direct debit).", 
+            "properties": {
+                "href": {
+                    "type": "string", 
+                    "description": "Reference of the payment mean"
+                }, 
+                "id": {
+                    "type": "string", 
+                    "description": "Unique identifier of the payment mean"
+                }, 
+                "name": {
+                    "type": "string", 
+                    "description": "Name of the payment mean"
+                }, 
+                "@referredType": {
+                    "type": "string", 
+                    "description": "The actual type of the target instance when needed for disambiguation."
+                }
+            }
+        }, 
+        "ContactMedium": {
+            "type": "object", 
+            "description": "Indicates the contact medium that could be used to contact the party.", 
+            "properties": {
+                "preferred": {
+                    "type": "boolean", 
+                    "description": "If true, indicates that is the preferred contact medium"
+                }, 
+                "type": {
+                    "type": "string", 
+                    "description": "Type of the contact medium, such as: email address, telephone number, postal address"
+                }, 
+                "validFor": {
+                    "$ref": "#/definitions/TimePeriod", 
+                    "description": "The time period that the contact medium is valid for"
+                }, 
+                "characteristic": {
+                    "$ref": "#/definitions/MediumCharacteristic"
+                }, 
+                "@type": {
+                    "type": "string", 
+                    "description": "The class type of the actual resource (for type extension)."
+                }, 
+                "@schemaLocation": {
+                    "type": "string", 
+                    "description": "A link to the schema describing a resource (for type extension)."
+                }, 
+                "@baseType": {
+                    "type": "string", 
+                    "description": "The base type for use in polymorphic collections"
+                }
+            }
+        }, 
+        "Characteristic": {
+            "type": "object", 
+            "description": "Describes a given characteristic of an object or entity through a name/value pair.", 
+            "properties": {
+                "name": {
+                    "type": "string", 
+                    "description": "Name of the characteristic"
+                }, 
+                "value": {
+                    "type": "string", 
+                    "description": "Value of the characteristic"
+                }, 
+                "@type": {
+                    "type": "string", 
+                    "description": "The class type of the actual resource (for type extension)."
+                }, 
+                "@schemaLocation": {
+                    "type": "string", 
+                    "description": "A link to the schema describing a resource (for type extension)."
+                }, 
+                "@baseType": {
+                    "type": "string", 
+                    "description": "The base type for use in polymorphic collections"
+                }
+            }
+        }, 
+        "CreditProfile": {
+            "type": "object", 
+            "description": "Credit profile for the party (containing credit scoring, ...). By default only the current credit profile  is retrieved. It can be used as a list to give the party credit profiles history, the first one in the list will be the current one.", 
+            "properties": {
+                "creditProfileDate": {
+                    "type": "string", 
+                    "format": "date-time", 
+                    "description": "The date the profile was established"
+                }, 
+                "creditRiskRating": {
+                    "type": "integer", 
+                    "description": "This is an integer whose value is used to rate the risk"
+                }, 
+                "creditScore": {
+                    "type": "integer", 
+                    "description": "A measure of a person's or an organization's creditworthiness calculated on the basis of a combination of factors such as their income and credit history."
+                }, 
+                "validFor": {
+                    "$ref": "#/definitions/TimePeriod", 
+                    "description": "The period for which the profile is valid"
+                }, 
+                "@type": {
+                    "type": "string", 
+                    "description": "The class type of the actual resource (for type extension)."
+                }, 
+                "@schemaLocation": {
+                    "type": "string", 
+                    "description": "A link to the schema describing a resource (for type extension)."
+                }, 
+                "@baseType": {
+                    "type": "string", 
+                    "description": "The base type for use in polymorphic collections"
+                }
+            }
+        }, 
+        "AgreementRef": {
+            "type": "object", 
+            "description": "Agreement reference. An agreement represents a contract or arrangement, either written or verbal and sometimes enforceable by law, such as a service level agreement or a customer price agreement. An agreement involves a number of other business entities, such as products, services, and resources and/or their specifications.", 
+            "properties": {
+                "@referredType": {
+                    "type": "string", 
+                    "description": "The actual type of the target instance when needed for disambiguation."
+                }, 
+                "href": {
+                    "type": "string", 
+                    "description": "Reference of the agreement"
+                }, 
+                "id": {
+                    "type": "string", 
+                    "description": "Identifier of the agreement"
+                }, 
+                "name": {
+                    "type": "string", 
+                    "description": "Name of the agreement"
+                }
+            }
+        }, 
+        "RelatedPartyRef": {
+            "type": "object", 
+            "description": "relatedParty (RelatedPartyRef). The party which the recommendation is related with.", 
+            "properties": {
+                "href": {
+                    "type": "string", 
+                    "description": "Hypertext Reference of the related party."
+                }, 
+                "id": {
+                    "type": "string", 
+                    "description": "Unique identifier of related party"
+                }, 
+                "name": {
+                    "type": "string", 
+                    "description": "Name of the related party."
+                }, 
+                "role": {
+                    "type": "string", 
+                    "description": "Role of the related party."
+                }, 
+                "@referredType": {
+                    "type": "string", 
+                    "description": "The actual type of the target instance when needed for disambiguation."
+                }
+            }
+        }, 
+        "MediumCharacteristic": {
+            "type": "object", 
+            "description": "Describes the contact medium characteristics that could be used to contact a party (an individual or an organization)", 
+            "properties": {
+                "@schemaLocation": {
+                    "type": "string", 
+                    "description": "A link to the schema describing a resource (for type extension)."
+                }, 
+                "@type": {
+                    "type": "string", 
+                    "description": "The class type of the actual resource (for type extension)."
+                }, 
+                "city": {
+                    "type": "string", 
+                    "description": "The city"
+                }, 
+                "country": {
+                    "type": "string", 
+                    "description": "The country"
+                }, 
+                "emailAddress": {
+                    "type": "string", 
+                    "description": "Full email address in standard format"
+                }, 
+                "faxNumber": {
+                    "type": "string", 
+                    "description": "The fax number of the contact"
+                }, 
+                "phoneNumber": {
+                    "type": "string", 
+                    "description": "The primary phone number of the contact"
+                }, 
+                "postCode": {
+                    "type": "string", 
+                    "description": "Postcode"
+                }, 
+                "stateOrProvince": {
+                    "type": "string", 
+                    "description": "State or province"
+                }, 
+                "street1": {
+                    "type": "string", 
+                    "description": "Describes the street"
+                }, 
+                "street2": {
+                    "type": "string", 
+                    "description": "Complementary street description"
+                }, 
+                "type": {
+                    "type": "string", 
+                    "description": "Type of medium (fax, mobile phone...)"
+                }, 
+                "@baseType": {
+                    "type": "string", 
+                    "description": "The base type for use in polymorphic collections"
+                }
+            }
+        }, 
+        "EventSubscription": {
+            "required": [
+                "id", 
+                "callback"
+            ], 
+            "properties": {
+                "id": {
+                    "type": "string", 
+                    "description": "Id of the listener"
+                }, 
+                "callback": {
+                    "type": "string", 
+                    "description": "The callback being registered."
+                }, 
+                "query": {
+                    "type": "string", 
+                    "description": "additional data to be passed"
+                }
+            }
+        }, 
+        "EventSubscriptionInput": {
+            "required": [
+                "callback"
+            ], 
+            "properties": {
+                "callback": {
+                    "type": "string", 
+                    "description": "The callback being registered."
+                }, 
+                "query": {
+                    "type": "string", 
+                    "description": "additional data to be passed"
+                }
+            }
+        }, 
+        "Error": {
+            "required": [
+                "code", 
+                "reason"
+            ], 
+            "properties": {
+                "code": {
+                    "type": "integer", 
+                    "description": "Application related code."
+                }, 
+                "reason": {
+                    "type": "integer", 
+                    "description": "Text that explains the reason for error."
+                }, 
+                "message": {
+                    "type": "string", 
+                    "description": "(optional) Text that provide more details and corrective actions related to the error."
+                }, 
+                "status": {
+                    "type": "integer", 
+                    "description": "(optional) http error code extension like 400-2"
+                }, 
+                "referenceError": {
+                    "type": "string", 
+                    "description": "(optional) A URL to online documentation that provides more information about the error."
+                }, 
+                "@type": {
+                    "type": "string", 
+                    "description": "(optional) The class type of a REST resource."
+                }, 
+                "@schemaLocation": {
+                    "type": "string", 
+                    "description": "(optional) A link to the schema describing a REST resource."
+                }
+            }
+        }
+    }
+}
