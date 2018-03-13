@@ -6,7 +6,7 @@
         "version": "2.0"
     }, 
     "host": "biologeek.orange-labs.fr", 
-    "basePath": "/tmf-api/customerManagement/v3/", 
+    "basePath": "/tmf-api/customerManagement/v1/", 
     "schemes": [
         "https"
     ], 
@@ -232,20 +232,8 @@
                     {
                         "in": "query", 
                         "type": "string", 
-                        "name": "agreement.@referredType", 
-                        "description": "For filtering on the base of '@referredType' field (equality)"
-                    }, 
-                    {
-                        "in": "query", 
-                        "type": "string", 
                         "name": "agreement.name", 
                         "description": "For filtering on the base of 'name' field (equality)"
-                    }, 
-                    {
-                        "in": "query", 
-                        "type": "string", 
-                        "name": "relatedParty.@referredType", 
-                        "description": "For filtering on the base of '@referredType' field (equality)"
                     }, 
                     {
                         "in": "query", 
@@ -541,6 +529,9 @@
     "definitions": {
         "Customer": {
             "type": "object", 
+            "required": [
+                "name"
+            ], 
             "properties": {
                 "href": {
                     "type": "string", 
@@ -594,7 +585,8 @@
                     "type": "array", 
                     "items": {
                         "$ref": "#/definitions/Characteristic"
-                    }
+                    }, 
+                    "description": "Describes the characteristic of a party role."
                 }, 
                 "creditProfile": {
                     "type": "array", 
@@ -625,6 +617,10 @@
                 "@baseType": {
                     "type": "string", 
                     "description": "The base type for use in polymorphic collections"
+                }, 
+                "@referredType": {
+                    "type": "string", 
+                    "description": "The actual type of the target instance when needed for disambiguation."
                 }
             }
         }, 
@@ -679,7 +675,8 @@
                     "type": "array", 
                     "items": {
                         "$ref": "#/definitions/Characteristic"
-                    }
+                    }, 
+                    "description": "Describes the characteristic of a party role."
                 }, 
                 "creditProfile": {
                     "type": "array", 
@@ -710,6 +707,10 @@
                 "@baseType": {
                     "type": "string", 
                     "description": "The base type for use in polymorphic collections"
+                }, 
+                "@referredType": {
+                    "type": "string", 
+                    "description": "The actual type of the target instance when needed for disambiguation."
                 }
             }
         }, 
@@ -761,7 +762,8 @@
                     "type": "array", 
                     "items": {
                         "$ref": "#/definitions/Characteristic"
-                    }
+                    }, 
+                    "description": "Describes the characteristic of a party role."
                 }, 
                 "creditProfile": {
                     "type": "array", 
@@ -792,6 +794,10 @@
                 "@baseType": {
                     "type": "string", 
                     "description": "The base type for use in polymorphic collections"
+                }, 
+                "@referredType": {
+                    "type": "string", 
+                    "description": "The actual type of the target instance when needed for disambiguation."
                 }
             }
         }, 
@@ -814,6 +820,9 @@
         "PartyRef": {
             "type": "object", 
             "description": "Party reference. A party represents an organization or an individual.", 
+            "required": [
+                "id"
+            ], 
             "properties": {
                 "description": {
                     "type": "string", 
@@ -866,6 +875,10 @@
         "AccountRef": {
             "type": "object", 
             "description": "Account reference. A account may be a party account or a financial account.", 
+            "required": [
+                "id", 
+                "name"
+            ], 
             "properties": {
                 "description": {
                     "type": "string", 
@@ -892,6 +905,10 @@
         "PaymentMethodRef": {
             "type": "object", 
             "description": "PaymentMethod reference. A payment method defines a specific mean of payment (e.g direct debit).", 
+            "required": [
+                "id", 
+                "href"
+            ], 
             "properties": {
                 "href": {
                     "type": "string", 
@@ -914,6 +931,10 @@
         "ContactMedium": {
             "type": "object", 
             "description": "Indicates the contact medium that could be used to contact the party.", 
+            "required": [
+                "type", 
+                "characteristic"
+            ], 
             "properties": {
                 "preferred": {
                     "type": "boolean", 
@@ -933,20 +954,16 @@
                 "@type": {
                     "type": "string", 
                     "description": "The class type of the actual resource (for type extension)."
-                }, 
-                "@schemaLocation": {
-                    "type": "string", 
-                    "description": "A link to the schema describing a resource (for type extension)."
-                }, 
-                "@baseType": {
-                    "type": "string", 
-                    "description": "The base type for use in polymorphic collections"
                 }
             }
         }, 
         "Characteristic": {
             "type": "object", 
             "description": "Describes a given characteristic of an object or entity through a name/value pair.", 
+            "required": [
+                "name", 
+                "value"
+            ], 
             "properties": {
                 "name": {
                     "type": "string", 
@@ -963,16 +980,16 @@
                 "@schemaLocation": {
                     "type": "string", 
                     "description": "A link to the schema describing a resource (for type extension)."
-                }, 
-                "@baseType": {
-                    "type": "string", 
-                    "description": "The base type for use in polymorphic collections"
                 }
             }
         }, 
         "CreditProfile": {
             "type": "object", 
             "description": "Credit profile for the party (containing credit scoring, ...). By default only the current credit profile  is retrieved. It can be used as a list to give the party credit profiles history, the first one in the list will be the current one.", 
+            "required": [
+                "creditProfileDate", 
+                "validFor"
+            ], 
             "properties": {
                 "creditProfileDate": {
                     "type": "string", 
@@ -994,25 +1011,17 @@
                 "@type": {
                     "type": "string", 
                     "description": "The class type of the actual resource (for type extension)."
-                }, 
-                "@schemaLocation": {
-                    "type": "string", 
-                    "description": "A link to the schema describing a resource (for type extension)."
-                }, 
-                "@baseType": {
-                    "type": "string", 
-                    "description": "The base type for use in polymorphic collections"
                 }
             }
         }, 
         "AgreementRef": {
             "type": "object", 
             "description": "Agreement reference. An agreement represents a contract or arrangement, either written or verbal and sometimes enforceable by law, such as a service level agreement or a customer price agreement. An agreement involves a number of other business entities, such as products, services, and resources and/or their specifications.", 
+            "required": [
+                "id", 
+                "href"
+            ], 
             "properties": {
-                "@referredType": {
-                    "type": "string", 
-                    "description": "The actual type of the target instance when needed for disambiguation."
-                }, 
                 "href": {
                     "type": "string", 
                     "description": "Reference of the agreement"
@@ -1024,24 +1033,32 @@
                 "name": {
                     "type": "string", 
                     "description": "Name of the agreement"
+                }, 
+                "@referredType": {
+                    "type": "string", 
+                    "description": "The actual type of the target instance when needed for disambiguation."
                 }
             }
         }, 
         "RelatedPartyRef": {
             "type": "object", 
-            "description": "relatedParty (RelatedPartyRef). The party which the recommendation is related with.", 
+            "description": "RelatedParty reference. A related party defines party or party role linked to a specific entity.", 
+            "required": [
+                "id", 
+                "name"
+            ], 
             "properties": {
                 "href": {
                     "type": "string", 
-                    "description": "Hypertext Reference of the related party."
+                    "description": "Reference of the related party, could be a party reference or a party role reference"
                 }, 
                 "id": {
                     "type": "string", 
-                    "description": "Unique identifier of related party"
+                    "description": "Unique identifier of a related party"
                 }, 
                 "name": {
                     "type": "string", 
-                    "description": "Name of the related party."
+                    "description": "Name of the related party"
                 }, 
                 "role": {
                     "type": "string", 
@@ -1057,14 +1074,6 @@
             "type": "object", 
             "description": "Describes the contact medium characteristics that could be used to contact a party (an individual or an organization)", 
             "properties": {
-                "@schemaLocation": {
-                    "type": "string", 
-                    "description": "A link to the schema describing a resource (for type extension)."
-                }, 
-                "@type": {
-                    "type": "string", 
-                    "description": "The class type of the actual resource (for type extension)."
-                }, 
                 "city": {
                     "type": "string", 
                     "description": "The city"
@@ -1105,9 +1114,13 @@
                     "type": "string", 
                     "description": "Type of medium (fax, mobile phone...)"
                 }, 
-                "@baseType": {
+                "@type": {
                     "type": "string", 
-                    "description": "The base type for use in polymorphic collections"
+                    "description": "The class type of the actual resource (for type extension)."
+                }, 
+                "@schemaLocation": {
+                    "type": "string", 
+                    "description": "A link to the schema describing a resource (for type extension)."
                 }
             }
         }, 
