@@ -3,7 +3,7 @@
     "info": {
         "title": "Customer Management",
         "description": "This is Swagger UI environment generated for the TMF Customer Management specification",
-        "version": "4.0"
+        "version": "4.0.0"
     },
     "host": "serverRoot",
     "basePath": "/tmf-api/customerManagement/v4/",
