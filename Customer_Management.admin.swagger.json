@@ -82,7 +82,7 @@
                         }
                     }, 
                     "405": {
-                        "description": "Method Not allowed", 
+                        "description": "Method Not Allowed",
                         "schema": {
                             "$ref": "#/definitions/Error"
                         }
@@ -150,7 +150,7 @@
                         }
                     }, 
                     "405": {
-                        "description": "Method Not allowed", 
+                        "description": "Method Not Allowed",
                         "schema": {
                             "$ref": "#/definitions/Error"
                         }
@@ -221,7 +221,7 @@
                         }
                     }, 
                     "405": {
-                        "description": "Method Not allowed", 
+                        "description": "Method Not Allowed",
                         "schema": {
                             "$ref": "#/definitions/Error"
                         }
@@ -296,7 +296,7 @@
                         }
                     }, 
                     "405": {
-                        "description": "Method Not allowed", 
+                        "description": "Method Not Allowed",
                         "schema": {
                             "$ref": "#/definitions/Error"
                         }
@@ -359,7 +359,7 @@
                         }
                     }, 
                     "405": {
-                        "description": "Method Not allowed", 
+                        "description": "Method Not Allowed",
                         "schema": {
                             "$ref": "#/definitions/Error"
                         }
@@ -406,7 +406,7 @@
                         }
                     }, 
                     "405": {
-                        "description": "Method Not allowed", 
+                        "description": "Method Not Allowed",
                         "schema": {
                             "$ref": "#/definitions/Error"
                         }
@@ -472,7 +472,7 @@
                         "description": "Deleted"
                     }, 
                     "405": {
-                        "description": "Method not allowed", 
+                        "description": "Method not Allowed",
                         "schema": {
                             "$ref": "#/definitions/Error"
                         }
