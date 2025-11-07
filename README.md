@@ -1,10 +1,8 @@
-# TMF629_CustomerManagement
-TM Forum Open APIs (Apache 2.0) Customer Management API
+# TMF629 CustomerManagement
 
-Provides a standardized mechanism for customer and customer account management, such
+TM Forum Open API (Apache 2.0) CustomerManagement API.
+
 as creation, update, retrieval, deletion and notification of events
 
-To access this API; (the Specification, Postman Collection, Swagger file, Swagger-UI, 
-Reference Implementation, Conformance Profile, and CTK) go to the Open API table at:
-
-https://projects.tmforum.org/wiki/display/API/Open+API+Table
+The resources in this repository are a mirror of the official versions, published here for your convenience.
+The authoritative source of information for this API is: https://www.tmforum.org/oda/open-apis/directory/
