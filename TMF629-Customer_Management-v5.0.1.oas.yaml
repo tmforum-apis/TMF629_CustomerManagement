@@ -1,0 +1,4756 @@
+openapi: 3.0.1
+info:
+  title: Customer Management
+  description: '**TMF API Reference : TMF - 629 Customer Management**'
+  version: 5.0.1
+servers:
+  - url: '{apiRoot}/tmf-api/customer/v5/'
+    variables:
+      apiRoot:
+        default: 'https://serverRoot'
+        enum:
+          - 'https://serverRoot'
+tags:
+  - name: customer
+    description: Operations for Customer Resource
+  - name: notification listener
+    description: Notifications for Resource Lifecycle and event notifications
+  - name: events subscription
+    description: Endpoints to register and terminate an Event Listener
+paths:
+  /customer:
+    get:
+      tags:
+        - customer
+      summary: List or find Customer objects
+      description: List or find Customer objects
+      operationId: listCustomer
+      parameters:
+        - $ref: '#/components/parameters/Fields'
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          $ref: '#/components/responses/200CustomerArray'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+        '500':
+          $ref: '#/components/responses/500'
+        '501':
+          $ref: '#/components/responses/501'
+        '503':
+          $ref: '#/components/responses/503'
+    post:
+      tags:
+        - customer
+      summary: Creates a Customer
+      description: This operation creates a Customer entity.
+      operationId: createCustomer
+      parameters:
+        - $ref: '#/components/parameters/Fields'
+      requestBody:
+        $ref: '#/components/requestBodies/Customer_FVO'
+      responses:
+        '201':
+          $ref: '#/components/responses/201Customer'
+        '202':
+          description: Accepted
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
+        '501':
+          $ref: '#/components/responses/501'
+        '503':
+          $ref: '#/components/responses/503'
+  '/customer/{id}':
+    get:
+      tags:
+        - customer
+      summary: Retrieves a Customer by ID
+      description: >-
+        This operation retrieves a Customer entity. Attribute selection enabled for all first level
+        attributes.
+      operationId: retrieveCustomer
+      parameters:
+        - $ref: '#/components/parameters/Id'
+        - $ref: '#/components/parameters/Fields'
+      responses:
+        '200':
+          $ref: '#/components/responses/200Customer_Get'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+        '500':
+          $ref: '#/components/responses/500'
+        '501':
+          $ref: '#/components/responses/501'
+        '503':
+          $ref: '#/components/responses/503'
+    patch:
+      tags:
+        - customer
+      summary: Updates partially a Customer
+      description: This operation updates partially a Customer entity.
+      operationId: patchCustomer
+      parameters:
+        - $ref: '#/components/parameters/Id'
+        - $ref: '#/components/parameters/Fields'
+      requestBody:
+        $ref: '#/components/requestBodies/Customer_MVO'
+      responses:
+        '200':
+          $ref: '#/components/responses/200Customer_Patch'
+        '202':
+          description: Accepted
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
+        '501':
+          $ref: '#/components/responses/501'
+        '503':
+          $ref: '#/components/responses/503'
+    delete:
+      tags:
+        - customer
+      summary: Deletes a Customer
+      description: This operation deletes a Customer entity.
+      operationId: deleteCustomer
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '202':
+          $ref: '#/components/responses/202'
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
+        '501':
+          $ref: '#/components/responses/501'
+        '503':
+          $ref: '#/components/responses/503'
+  /hub:
+    post:
+      operationId: createHub
+      summary: Create a subscription (hub) to receive Events
+      description: Sets the communication endpoint to receive Events.
+      tags:
+        - events subscription
+      requestBody:
+        $ref: '#/components/requestBodies/Hub_FVO'
+      responses:
+        '201':
+          $ref: '#/components/responses/Hub'
+        default:
+          $ref: '#/components/responses/Error'
+  '/hub/{id}':
+    get:
+      operationId: hubGet
+      summary: Retrieve a subscription (hub)
+      description: ''
+      tags:
+        - events subscription
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          $ref: '#/components/responses/Hub'
+        default:
+          $ref: '#/components/responses/Error'
+    delete:
+      operationId: hubDelete
+      summary: Remove a subscription (hub) to receive Events
+      description: ''
+      tags:
+        - events subscription
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '204':
+          description: Deleted
+        default:
+          $ref: '#/components/responses/Error'
+  /listener/customerAttributeValueChangeEvent:
+    post:
+      tags:
+        - notification listener
+      summary: Client listener for entity CustomerAttributeValueChangeEvent
+      description: >-
+        Example of a client listener for receiving the notification
+        CustomerAttributeValueChangeEvent
+      operationId: customerAttributeValueChangeEvent
+      requestBody:
+        $ref: '#/components/requestBodies/CustomerAttributeValueChangeEvent'
+      responses:
+        '204':
+          description: Notified
+        default:
+          $ref: '#/components/responses/Error'
+  /listener/customerCreateEvent:
+    post:
+      tags:
+        - notification listener
+      summary: Client listener for entity CustomerCreateEvent
+      description: Example of a client listener for receiving the notification CustomerCreateEvent
+      operationId: customerCreateEvent
+      requestBody:
+        $ref: '#/components/requestBodies/CustomerCreateEvent'
+      responses:
+        '204':
+          description: Notified
+        default:
+          $ref: '#/components/responses/Error'
+  /listener/customerDeleteEvent:
+    post:
+      tags:
+        - notification listener
+      summary: Client listener for entity CustomerDeleteEvent
+      description: Example of a client listener for receiving the notification CustomerDeleteEvent
+      operationId: customerDeleteEvent
+      requestBody:
+        $ref: '#/components/requestBodies/CustomerDeleteEvent'
+      responses:
+        '204':
+          description: Notified
+        default:
+          $ref: '#/components/responses/Error'
+  /listener/customerStateChangeEvent:
+    post:
+      tags:
+        - notification listener
+      summary: Client listener for entity CustomerStateChangeEvent
+      description: Example of a client listener for receiving the notification CustomerStateChangeEvent
+      operationId: customerStateChangeEvent
+      requestBody:
+        $ref: '#/components/requestBodies/CustomerStateChangeEvent'
+      responses:
+        '204':
+          description: Notified
+        default:
+          $ref: '#/components/responses/Error'
+components:
+  schemas:
+    AccountRef:
+      type: object
+      description: Account reference. A account may be a party account or a financial account.
+      allOf:
+        - $ref: '#/components/schemas/EntityRef'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          AccountRef: '#/components/schemas/AccountRef'
+    AccountRef_FVO:
+      type: object
+      description: Account reference. A account may be a party account or a financial account.
+      allOf:
+        - $ref: '#/components/schemas/EntityRef_FVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          AccountRef: '#/components/schemas/AccountRef_FVO'
+    AccountRef_MVO:
+      type: object
+      description: Account reference. A account may be a party account or a financial account.
+      allOf:
+        - $ref: '#/components/schemas/EntityRef_MVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          AccountRef: '#/components/schemas/AccountRef_MVO'
+    Addressable:
+      type: object
+      description: Base schema for addressable entities
+      properties:
+        href:
+          type: string
+          description: Hyperlink reference
+        id:
+          type: string
+          description: unique identifier
+    Addressable_FVO:
+      type: object
+      description: Base schema for addressable entities
+    Addressable_MVO:
+      type: object
+      description: Base schema for addressable entities
+    AgreementRef:
+      type: object
+      description: >-
+        Agreement reference. An agreement represents a contract or arrangement, either written or
+        verbal and sometimes enforceable by law, such as a service level agreement or a customer
+        price agreement. An agreement involves a number of other business entities, such as
+        products, services, and resources and/or their specifications.
+      allOf:
+        - $ref: '#/components/schemas/EntityRef'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          AgreementRef: '#/components/schemas/AgreementRef'
+    AgreementRef_FVO:
+      type: object
+      description: >-
+        Agreement reference. An agreement represents a contract or arrangement, either written or
+        verbal and sometimes enforceable by law, such as a service level agreement or a customer
+        price agreement. An agreement involves a number of other business entities, such as
+        products, services, and resources and/or their specifications.
+      allOf:
+        - $ref: '#/components/schemas/EntityRef_FVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          AgreementRef: '#/components/schemas/AgreementRef_FVO'
+    AgreementRef_MVO:
+      type: object
+      description: >-
+        Agreement reference. An agreement represents a contract or arrangement, either written or
+        verbal and sometimes enforceable by law, such as a service level agreement or a customer
+        price agreement. An agreement involves a number of other business entities, such as
+        products, services, and resources and/or their specifications.
+      allOf:
+        - $ref: '#/components/schemas/EntityRef_MVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          AgreementRef: '#/components/schemas/AgreementRef_MVO'
+    Attachment:
+      allOf:
+        - $ref: '#/components/schemas/Entity'
+        - type: object
+          description: >-
+            Complements the description of an element (for instance a product) through video,
+            pictures...
+          properties:
+            name:
+              type: string
+              description: The name of the attachment
+            description:
+              type: string
+              description: A narrative text describing the content of the attachment
+              example: Photograph of the Product
+            url:
+              type: string
+              description: 'Uniform Resource Locator, is a web page address (a subset of URI)'
+              example: 'https://host/Content/4aafacbd-11ff-4dc8-b445-305f2215715f'
+            content:
+              type: string
+              format: base64
+              description: 'The actual contents of the attachment object, if embedded, encoded as base64'
+            size:
+              $ref: '#/components/schemas/Quantity'
+            validFor:
+              $ref: '#/components/schemas/TimePeriod'
+            attachmentType:
+              type: string
+              description: >-
+                a business characterization of the purpose of the attachment, for example logo,
+                instructionManual, contractCopy
+            mimeType:
+              type: string
+              description: a technical characterization of the attachment content format using IETF Mime Types
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Attachment: '#/components/schemas/Attachment'
+    AttachmentRef:
+      allOf:
+        - $ref: '#/components/schemas/EntityRef'
+        - type: object
+          description: >-
+            Attachment reference. An attachment complements the description of an element (for
+            instance a product) through video, pictures
+          properties:
+            description:
+              type: string
+              description: A narrative text describing the content of the attachment
+            url:
+              description: Link to the attachment media/content
+              type: string
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          AttachmentRef: '#/components/schemas/AttachmentRef'
+    AttachmentRefOrValue:
+      type: object
+      description: >-
+        The polymorphic attributes @type, @schemaLocation & @referredType are related to the
+        Attachment entity and not the AttachmentRefOrValue class itself
+      oneOf:
+        - $ref: '#/components/schemas/Attachment'
+        - $ref: '#/components/schemas/AttachmentRef'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Attachment: '#/components/schemas/Attachment'
+          AttachmentRef: '#/components/schemas/AttachmentRef'
+    AttachmentRefOrValue_FVO:
+      type: object
+      description: >-
+        The polymorphic attributes @type, @schemaLocation & @referredType are related to the
+        Attachment entity and not the AttachmentRefOrValue class itself
+      oneOf:
+        - $ref: '#/components/schemas/Attachment_FVO'
+        - $ref: '#/components/schemas/AttachmentRef_FVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Attachment: '#/components/schemas/Attachment_FVO'
+          AttachmentRef: '#/components/schemas/AttachmentRef_FVO'
+    AttachmentRefOrValue_MVO:
+      type: object
+      description: >-
+        The polymorphic attributes @type, @schemaLocation & @referredType are related to the
+        Attachment entity and not the AttachmentRefOrValue class itself
+      oneOf:
+        - $ref: '#/components/schemas/Attachment_MVO'
+        - $ref: '#/components/schemas/AttachmentRef_MVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Attachment: '#/components/schemas/Attachment_MVO'
+          AttachmentRef: '#/components/schemas/AttachmentRef_MVO'
+    AttachmentRef_FVO:
+      allOf:
+        - $ref: '#/components/schemas/EntityRef_FVO'
+        - type: object
+          description: >-
+            Attachment reference. An attachment complements the description of an element (for
+            instance a product) through video, pictures
+          properties:
+            description:
+              type: string
+              description: A narrative text describing the content of the attachment
+            url:
+              description: Link to the attachment media/content
+              type: string
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          AttachmentRef: '#/components/schemas/AttachmentRef_FVO'
+    AttachmentRef_MVO:
+      allOf:
+        - $ref: '#/components/schemas/EntityRef_MVO'
+        - type: object
+          description: >-
+            Attachment reference. An attachment complements the description of an element (for
+            instance a product) through video, pictures
+          properties:
+            description:
+              type: string
+              description: A narrative text describing the content of the attachment
+            url:
+              description: Link to the attachment media/content
+              type: string
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          AttachmentRef: '#/components/schemas/AttachmentRef_MVO'
+    Attachment_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Entity'
+        - type: object
+          description: >-
+            Complements the description of an element (for instance a product) through video,
+            pictures...
+          properties:
+            name:
+              type: string
+              description: The name of the attachment
+            description:
+              type: string
+              description: A narrative text describing the content of the attachment
+              example: Photograph of the Product
+            url:
+              type: string
+              description: 'Uniform Resource Locator, is a web page address (a subset of URI)'
+              example: 'https://host/Content/4aafacbd-11ff-4dc8-b445-305f2215715f'
+            content:
+              type: string
+              format: base64
+              description: 'The actual contents of the attachment object, if embedded, encoded as base64'
+            size:
+              $ref: '#/components/schemas/Quantity'
+            validFor:
+              $ref: '#/components/schemas/TimePeriod'
+            attachmentType:
+              type: string
+              description: >-
+                a business characterization of the purpose of the attachment, for example logo,
+                instructionManual, contractCopy
+            mimeType:
+              type: string
+              description: a technical characterization of the attachment content format using IETF Mime Types
+          required:
+            - attachmentType
+            - mimeType
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Attachment: '#/components/schemas/Attachment_FVO'
+    Attachment_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Entity'
+        - type: object
+          description: >-
+            Complements the description of an element (for instance a product) through video,
+            pictures...
+          properties:
+            name:
+              type: string
+              description: The name of the attachment
+            description:
+              type: string
+              description: A narrative text describing the content of the attachment
+              example: Photograph of the Product
+            url:
+              type: string
+              description: 'Uniform Resource Locator, is a web page address (a subset of URI)'
+              example: 'https://host/Content/4aafacbd-11ff-4dc8-b445-305f2215715f'
+            content:
+              type: string
+              format: base64
+              description: 'The actual contents of the attachment object, if embedded, encoded as base64'
+            size:
+              $ref: '#/components/schemas/Quantity'
+            validFor:
+              $ref: '#/components/schemas/TimePeriod'
+            attachmentType:
+              type: string
+              description: >-
+                a business characterization of the purpose of the attachment, for example logo,
+                instructionManual, contractCopy
+            mimeType:
+              type: string
+              description: a technical characterization of the attachment content format using IETF Mime Types
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Attachment: '#/components/schemas/Attachment_MVO'
+    BaseEvent:
+      allOf:
+        - $ref: '#/components/schemas/Entity'
+        - type: object
+          description: Base event with common attributes.
+          properties:
+            event:
+              type: object
+              description: The event linked to the involved resource object
+            eventId:
+              type: string
+              description: The identifier of the notification.
+            eventTime:
+              type: string
+              format: date-time
+              description: Time of the event occurrence.
+            eventType:
+              type: string
+              description: The type of the notification.
+            correlationId:
+              type: string
+              description: The correlation id for this event.
+            domain:
+              type: string
+              description: The domain of the event.
+            title:
+              type: string
+              description: The title of the event.
+            description:
+              type: string
+              description: An explanatory of the event.
+            priority:
+              type: string
+              description: A priority.
+            timeOcurred:
+              type: string
+              format: date-time
+              description: The time the event occurred.
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          BaseEvent: '#/components/schemas/BaseEvent'
+    BooleanArrayCharacteristic:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic'
+        - type: object
+          description: A characteristic which value is an array of Boolean(s).
+          properties:
+            value:
+              type: array
+              description: A characteristic which value is an array of Boolean(s).
+              items:
+                type: boolean
+                description: Characteristic item boolean value
+    BooleanArrayCharacteristic_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_FVO'
+        - type: object
+          description: A characteristic which value is an array of Boolean(s).
+          properties:
+            value:
+              type: array
+              description: A characteristic which value is an array of Boolean(s).
+              items:
+                type: boolean
+                description: Characteristic item boolean value
+          required:
+            - value
+    BooleanArrayCharacteristic_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_MVO'
+        - type: object
+          description: A characteristic which value is an array of Boolean(s).
+          properties:
+            value:
+              type: array
+              description: A characteristic which value is an array of Boolean(s).
+              items:
+                type: boolean
+                description: Characteristic item boolean value
+    BooleanCharacteristic:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic'
+        - type: object
+          description: A characteristic which value is a Boolean.
+          properties:
+            value:
+              type: boolean
+              description: Value of the characteristic
+    BooleanCharacteristic_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_FVO'
+        - type: object
+          description: A characteristic which value is a Boolean.
+          properties:
+            value:
+              type: boolean
+              description: Value of the characteristic
+          required:
+            - value
+    BooleanCharacteristic_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_MVO'
+        - type: object
+          description: A characteristic which value is a Boolean.
+          properties:
+            value:
+              type: boolean
+              description: Value of the characteristic
+    BusinessPartner:
+      type: object
+      description: 'When business partner is the BusinessPartner '
+      allOf:
+        - $ref: '#/components/schemas/PartyRole'
+    BusinessPartner_FVO:
+      type: object
+      description: 'When business partner is the BusinessPartner '
+      allOf:
+        - $ref: '#/components/schemas/PartyRole_FVO'
+    BusinessPartner_MVO:
+      type: object
+      description: 'When business partner is the BusinessPartner '
+      allOf:
+        - $ref: '#/components/schemas/PartyRole_MVO'
+    Characteristic:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          description: >-
+            Describes a given characteristic of an object or entity through a name/value pair. This
+            is an abstract base class, the actual value is in one of the strongly-typed subclasses :
+            StringCharacteristic, ObjectCharacteristic, FloatCharacteristic, BooleanCharacteristic,
+            NumberCharacteristic, IntegerCharacteristic, StringArrayCharacteristic,
+            ObjectArrayCharacteristic, BooleanArrayCharacteristic, NumberArrayCharacteristic,
+            IntegerArrayCharacteristic...
+          properties:
+            id:
+              type: string
+              description: Unique identifier of the characteristic
+            name:
+              type: string
+              description: Name of the characteristic
+            valueType:
+              type: string
+              description: Data type of the value of the characteristic
+            characteristicRelationship:
+              type: array
+              description: Collection of characteristic relationships
+              items:
+                $ref: '#/components/schemas/CharacteristicRelationship'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Characteristic: '#/components/schemas/Characteristic'
+          BooleanArrayCharacteristic: '#/components/schemas/BooleanArrayCharacteristic'
+          BooleanCharacteristic: '#/components/schemas/BooleanCharacteristic'
+          FloatCharacteristic: '#/components/schemas/FloatCharacteristic'
+          IntegerArrayCharacteristic: '#/components/schemas/IntegerArrayCharacteristic'
+          IntegerCharacteristic: '#/components/schemas/IntegerCharacteristic'
+          NumberArrayCharacteristic: '#/components/schemas/NumberArrayCharacteristic'
+          NumberCharacteristic: '#/components/schemas/NumberCharacteristic'
+          ObjectArrayCharacteristic: '#/components/schemas/ObjectArrayCharacteristic'
+          ObjectCharacteristic: '#/components/schemas/ObjectCharacteristic'
+          StringArrayCharacteristic: '#/components/schemas/StringArrayCharacteristic'
+          StringCharacteristic: '#/components/schemas/StringCharacteristic'
+    CharacteristicRelationship:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          description: Another Characteristic that is related to the current Characteristic;
+          properties:
+            id:
+              type: string
+              description: Unique identifier of the characteristic
+            relationshipType:
+              type: string
+              description: The type of relationship
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          CharacteristicRelationship: '#/components/schemas/CharacteristicRelationship'
+    CharacteristicRelationship_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          description: Another Characteristic that is related to the current Characteristic;
+          properties:
+            id:
+              type: string
+              description: Unique identifier of the characteristic
+            relationshipType:
+              type: string
+              description: The type of relationship
+          required:
+            - id
+            - relationshipType
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          CharacteristicRelationship: '#/components/schemas/CharacteristicRelationship_FVO'
+    CharacteristicRelationship_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_MVO'
+        - type: object
+          description: Another Characteristic that is related to the current Characteristic;
+          properties:
+            id:
+              type: string
+              description: Unique identifier of the characteristic
+            relationshipType:
+              type: string
+              description: The type of relationship
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          CharacteristicRelationship: '#/components/schemas/CharacteristicRelationship_MVO'
+    Characteristic_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          description: >-
+            Describes a given characteristic of an object or entity through a name/value pair. This
+            is an abstract base class, the actual value is in one of the strongly-typed subclasses :
+            StringCharacteristic, ObjectCharacteristic, FloatCharacteristic, BooleanCharacteristic,
+            NumberCharacteristic, IntegerCharacteristic, StringArrayCharacteristic,
+            ObjectArrayCharacteristic, BooleanArrayCharacteristic, NumberArrayCharacteristic,
+            IntegerArrayCharacteristic...
+          properties:
+            name:
+              type: string
+              description: Name of the characteristic
+            valueType:
+              type: string
+              description: Data type of the value of the characteristic
+            characteristicRelationship:
+              type: array
+              description: Collection of characteristic relationships
+              items:
+                $ref: '#/components/schemas/CharacteristicRelationship_FVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Characteristic: '#/components/schemas/Characteristic_FVO'
+          BooleanArrayCharacteristic: '#/components/schemas/BooleanArrayCharacteristic_FVO'
+          BooleanCharacteristic: '#/components/schemas/BooleanCharacteristic_FVO'
+          FloatCharacteristic: '#/components/schemas/FloatCharacteristic_FVO'
+          IntegerArrayCharacteristic: '#/components/schemas/IntegerArrayCharacteristic_FVO'
+          IntegerCharacteristic: '#/components/schemas/IntegerCharacteristic_FVO'
+          NumberArrayCharacteristic: '#/components/schemas/NumberArrayCharacteristic_FVO'
+          NumberCharacteristic: '#/components/schemas/NumberCharacteristic_FVO'
+          ObjectArrayCharacteristic: '#/components/schemas/ObjectArrayCharacteristic_FVO'
+          ObjectCharacteristic: '#/components/schemas/ObjectCharacteristic_FVO'
+          StringArrayCharacteristic: '#/components/schemas/StringArrayCharacteristic_FVO'
+          StringCharacteristic: '#/components/schemas/StringCharacteristic_FVO'
+    Characteristic_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_MVO'
+        - type: object
+          description: >-
+            Describes a given characteristic of an object or entity through a name/value pair. This
+            is an abstract base class, the actual value is in one of the strongly-typed subclasses :
+            StringCharacteristic, ObjectCharacteristic, FloatCharacteristic, BooleanCharacteristic,
+            NumberCharacteristic, IntegerCharacteristic, StringArrayCharacteristic,
+            ObjectArrayCharacteristic, BooleanArrayCharacteristic, NumberArrayCharacteristic,
+            IntegerArrayCharacteristic...
+          properties:
+            name:
+              type: string
+              description: Name of the characteristic
+            valueType:
+              type: string
+              description: Data type of the value of the characteristic
+            characteristicRelationship:
+              type: array
+              description: Collection of characteristic relationships
+              items:
+                $ref: '#/components/schemas/CharacteristicRelationship_MVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Characteristic: '#/components/schemas/Characteristic_MVO'
+          BooleanArrayCharacteristic: '#/components/schemas/BooleanArrayCharacteristic_MVO'
+          BooleanCharacteristic: '#/components/schemas/BooleanCharacteristic_MVO'
+          FloatCharacteristic: '#/components/schemas/FloatCharacteristic_MVO'
+          IntegerArrayCharacteristic: '#/components/schemas/IntegerArrayCharacteristic_MVO'
+          IntegerCharacteristic: '#/components/schemas/IntegerCharacteristic_MVO'
+          NumberArrayCharacteristic: '#/components/schemas/NumberArrayCharacteristic_MVO'
+          NumberCharacteristic: '#/components/schemas/NumberCharacteristic_MVO'
+          ObjectArrayCharacteristic: '#/components/schemas/ObjectArrayCharacteristic_MVO'
+          ObjectCharacteristic: '#/components/schemas/ObjectCharacteristic_MVO'
+          StringArrayCharacteristic: '#/components/schemas/StringArrayCharacteristic_MVO'
+          StringCharacteristic: '#/components/schemas/StringCharacteristic_MVO'
+    Consumer:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/PartyRole'
+    Consumer_FVO:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/PartyRole_FVO'
+    Consumer_MVO:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/PartyRole_MVO'
+    ContactMedium:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          description: >-
+            Indicates the contact medium that could be used to contact the party. This is an
+            abstract base class, the actual value is in one of the strongly-typed subclasses :
+            EmailContactMedium, FaxContactMedium, PhoneContactMedium,
+            GeographicAddressContactMedium, SocialMediaContactMedium...
+          properties:
+            id:
+              type: string
+              description: Identifier for this contact medium.
+            preferred:
+              type: boolean
+              description: 'If true, indicates that is the preferred contact medium'
+            contactType:
+              type: string
+              description: >-
+                Type of the contact medium to qualify it like pro email / personal email. This is
+                not used to define the contact medium used.
+            validFor:
+              $ref: '#/components/schemas/TimePeriod'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          ContactMedium: '#/components/schemas/ContactMedium'
+          EmailContactMedium: '#/components/schemas/EmailContactMedium'
+          FaxContactMedium: '#/components/schemas/FaxContactMedium'
+          GeographicAddressContactMedium: '#/components/schemas/GeographicAddressContactMedium'
+          PhoneContactMedium: '#/components/schemas/PhoneContactMedium'
+          SocialContactMedium: '#/components/schemas/SocialContactMedium'
+    ContactMedium_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          description: >-
+            Indicates the contact medium that could be used to contact the party. This is an
+            abstract base class, the actual value is in one of the strongly-typed subclasses :
+            EmailContactMedium, FaxContactMedium, PhoneContactMedium,
+            GeographicAddressContactMedium, SocialMediaContactMedium...
+          properties:
+            preferred:
+              type: boolean
+              description: 'If true, indicates that is the preferred contact medium'
+            contactType:
+              type: string
+              description: >-
+                Type of the contact medium to qualify it like pro email / personal email. This is
+                not used to define the contact medium used.
+            validFor:
+              $ref: '#/components/schemas/TimePeriod'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          ContactMedium: '#/components/schemas/ContactMedium_FVO'
+          EmailContactMedium: '#/components/schemas/EmailContactMedium_FVO'
+          FaxContactMedium: '#/components/schemas/FaxContactMedium_FVO'
+          GeographicAddressContactMedium: '#/components/schemas/GeographicAddressContactMedium_FVO'
+          PhoneContactMedium: '#/components/schemas/PhoneContactMedium_FVO'
+          SocialContactMedium: '#/components/schemas/SocialContactMedium_FVO'
+    ContactMedium_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_MVO'
+        - type: object
+          description: >-
+            Indicates the contact medium that could be used to contact the party. This is an
+            abstract base class, the actual value is in one of the strongly-typed subclasses :
+            EmailContactMedium, FaxContactMedium, PhoneContactMedium,
+            GeographicAddressContactMedium, SocialMediaContactMedium...
+          properties:
+            preferred:
+              type: boolean
+              description: 'If true, indicates that is the preferred contact medium'
+            contactType:
+              type: string
+              description: >-
+                Type of the contact medium to qualify it like pro email / personal email. This is
+                not used to define the contact medium used.
+            validFor:
+              $ref: '#/components/schemas/TimePeriod'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          ContactMedium: '#/components/schemas/ContactMedium_MVO'
+          EmailContactMedium: '#/components/schemas/EmailContactMedium_MVO'
+          FaxContactMedium: '#/components/schemas/FaxContactMedium_MVO'
+          GeographicAddressContactMedium: '#/components/schemas/GeographicAddressContactMedium_MVO'
+          PhoneContactMedium: '#/components/schemas/PhoneContactMedium_MVO'
+          SocialContactMedium: '#/components/schemas/SocialContactMedium_MVO'
+    CreditProfile:
+      allOf:
+        - $ref: '#/components/schemas/Entity'
+        - type: object
+          description: >-
+            Credit profile for the party (containing credit scoring, ...). By default only the
+            current credit profile  is retrieved. It can be used as a list to give the party credit
+            profiles history, the first one in the list will be the current one.
+          properties:
+            creditProfileDate:
+              type: string
+              format: date-time
+              description: The date the profile was established
+            creditRiskRating:
+              type: integer
+              description: This is an integer whose value is used to rate the risk
+            creditScore:
+              type: integer
+              description: >-
+                A measure of a person or organizations creditworthiness calculated on the basis of a
+                combination of factors such as their income and credit history
+            validFor:
+              $ref: '#/components/schemas/TimePeriod'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          CreditProfile: '#/components/schemas/CreditProfile'
+    CreditProfile_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Entity'
+        - type: object
+          description: >-
+            Credit profile for the party (containing credit scoring, ...). By default only the
+            current credit profile  is retrieved. It can be used as a list to give the party credit
+            profiles history, the first one in the list will be the current one.
+          properties:
+            creditProfileDate:
+              type: string
+              format: date-time
+              description: The date the profile was established
+            creditRiskRating:
+              type: integer
+              description: This is an integer whose value is used to rate the risk
+            creditScore:
+              type: integer
+              description: >-
+                A measure of a person or organizations creditworthiness calculated on the basis of a
+                combination of factors such as their income and credit history
+            validFor:
+              $ref: '#/components/schemas/TimePeriod'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          CreditProfile: '#/components/schemas/CreditProfile_MVO'
+    Customer:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/PartyRole'
+    CustomerAttributeValueChangeEvent:
+      allOf:
+        - $ref: '#/components/schemas/Event'
+        - type: object
+          description: CustomerAttributeValueChangeEvent generic structure
+          properties:
+            event:
+              $ref: '#/components/schemas/CustomerAttributeValueChangeEventPayload'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          CustomerAttributeValueChangeEvent: '#/components/schemas/CustomerAttributeValueChangeEvent'
+    CustomerAttributeValueChangeEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        customer:
+          $ref: '#/components/schemas/Customer'
+    CustomerCreateEvent:
+      allOf:
+        - $ref: '#/components/schemas/Event'
+        - type: object
+          description: CustomerCreateEvent generic structure
+          properties:
+            event:
+              $ref: '#/components/schemas/CustomerCreateEventPayload'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          CustomerCreateEvent: '#/components/schemas/CustomerCreateEvent'
+    CustomerCreateEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        customer:
+          $ref: '#/components/schemas/Customer'
+    CustomerDeleteEvent:
+      allOf:
+        - $ref: '#/components/schemas/Event'
+        - type: object
+          description: CustomerDeleteEvent generic structure
+          properties:
+            event:
+              $ref: '#/components/schemas/CustomerDeleteEventPayload'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          CustomerDeleteEvent: '#/components/schemas/CustomerDeleteEvent'
+    CustomerDeleteEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        customer:
+          $ref: '#/components/schemas/Customer'
+    CustomerStateChangeEvent:
+      allOf:
+        - $ref: '#/components/schemas/Event'
+        - type: object
+          description: CustomerStateChangeEvent generic structure
+          properties:
+            event:
+              $ref: '#/components/schemas/CustomerStateChangeEventPayload'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          CustomerStateChangeEvent: '#/components/schemas/CustomerStateChangeEvent'
+    CustomerStateChangeEventPayload:
+      type: object
+      description: The event data structure
+      properties:
+        customer:
+          $ref: '#/components/schemas/Customer'
+    Customer_FVO:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/PartyRole_FVO'
+      required:
+        - engagedParty
+    Customer_MVO:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/PartyRole_MVO'
+    Disability:
+      type: object
+      description: Lack or inadequate strength or ability.
+      properties:
+        disabilityCode:
+          type: string
+          description: Code of the disability
+        disabilityName:
+          type: string
+          description: Name of the disability
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+    EmailContactMedium:
+      allOf:
+        - $ref: '#/components/schemas/ContactMedium'
+        - type: object
+          description: >-
+            Describes an email that could be used to contact a party (an individual or an
+            organization)
+          properties:
+            emailAddress:
+              type: string
+              description: Full email address in standard format
+    EmailContactMedium_FVO:
+      allOf:
+        - $ref: '#/components/schemas/ContactMedium_FVO'
+        - type: object
+          description: >-
+            Describes an email that could be used to contact a party (an individual or an
+            organization)
+          properties:
+            emailAddress:
+              type: string
+              description: Full email address in standard format
+    EmailContactMedium_MVO:
+      allOf:
+        - $ref: '#/components/schemas/ContactMedium_MVO'
+        - type: object
+          description: >-
+            Describes an email that could be used to contact a party (an individual or an
+            organization)
+          properties:
+            emailAddress:
+              type: string
+              description: Full email address in standard format
+    Entity:
+      type: object
+      description: Base entity schema for use in TMForum Open-APIs. Property.
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - $ref: '#/components/schemas/Addressable'
+    EntityRef:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - $ref: '#/components/schemas/Addressable'
+        - type: object
+          description: Entity reference schema to be use for all entityRef class.
+          properties:
+            id:
+              type: string
+              description: The identifier of the referred entity.
+            href:
+              type: string
+              description: The URI of the referred entity.
+            name:
+              type: string
+              description: Name of the referred entity.
+            '@referredType':
+              type: string
+              description: The actual type of the target instance when needed for disambiguation.
+          required:
+            - id
+    EntityRef_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - $ref: '#/components/schemas/Addressable'
+        - type: object
+          description: Entity reference schema to be use for all entityRef class.
+          properties:
+            name:
+              type: string
+              description: Name of the referred entity.
+            '@referredType':
+              type: string
+              description: The actual type of the target instance when needed for disambiguation.
+    EntityRef_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - $ref: '#/components/schemas/Addressable'
+        - type: object
+          description: Entity reference schema to be use for all entityRef class.
+          properties:
+            name:
+              type: string
+              description: Name of the referred entity.
+            '@referredType':
+              type: string
+              description: The actual type of the target instance when needed for disambiguation.
+    Entity_MVO:
+      type: object
+      description: Base entity schema for use in TMForum Open-APIs. Property.
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+    Event:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          description: event with common attributes.
+          properties:
+            href:
+              type: string
+              description: Hyperlink reference
+            id:
+              type: string
+              description: unique identifier
+            correlationId:
+              type: string
+              description: The correlation id for this event.
+            domain:
+              type: string
+              description: The domain of the event.
+            title:
+              type: string
+              description: The title of the event.
+            description:
+              type: string
+              description: An explanation of the event.
+            priority:
+              type: string
+              description: A priority.
+            timeOccurred:
+              type: string
+              format: date-time
+              description: The time the event occurred.
+            source:
+              $ref: '#/components/schemas/EntityRef'
+            reportingSystem:
+              $ref: '#/components/schemas/EntityRef'
+            relatedParty:
+              type: array
+              description: Collection of related parties
+              items:
+                $ref: '#/components/schemas/RelatedPartyRefOrPartyRoleRef'
+            analyticCharacteristic:
+              type: array
+              description: Collection of analytic characteristics
+              items:
+                $ref: '#/components/schemas/Characteristic'
+            eventId:
+              type: string
+              description: The identifier of the notification.
+            eventTime:
+              type: string
+              format: date-time
+              description: Time of the event occurrence.
+            eventType:
+              type: string
+              description: The type of the notification.
+            event:
+              description: The event linked to the involved resource object
+              type: object
+    Extensible:
+      type: object
+      description: >-
+        Base Extensible schema for use in TMForum Open-APIs - When used for in a schema it means
+        that the Entity described by the schema  MUST be extended with the @type
+      properties:
+        '@type':
+          type: string
+          description: 'When sub-classing, this defines the sub-class Extensible name'
+        '@baseType':
+          type: string
+          description: 'When sub-classing, this defines the super-class'
+        '@schemaLocation':
+          type: string
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+      required:
+        - '@type'
+    Extensible_MVO:
+      type: object
+      description: >-
+        Base Extensible schema for use in TMForum Open-APIs - When used for in a schema it means
+        that the Entity described by the schema  MUST be extended with the @type
+    ExternalIdentifier:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          description: >-
+            An identification of an entity that is owned by or originates in a software system
+            different from the current system, for example a ProductOrder handed off from a commerce
+            platform into an order handling system. The structure identifies the system itself, the
+            nature of the entity within the system (e.g. class name) and the unique ID of the entity
+            within the system. It is anticipated that multiple external IDs can be held for a single
+            entity, e.g. if the entity passed through multiple systems on the way to the current
+            system. In this case the consumer is expected to sequence the IDs in the array in
+            reverse order of provenance, i.e. most recent system first in the list.
+          properties:
+            owner:
+              type: string
+              description: Name of the external system that owns the entity.
+              example: MagentoCommerce
+            externalIdentifierType:
+              type: string
+              description: >-
+                Type of the identification, typically would be the type of the entity within the
+                external system
+              example: ProductOrder
+            id:
+              type: string
+              description: identification of the entity within the external system.
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          ExternalIdentifier: '#/components/schemas/ExternalIdentifier'
+    ExternalIdentifier_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          description: >-
+            An identification of an entity that is owned by or originates in a software system
+            different from the current system, for example a ProductOrder handed off from a commerce
+            platform into an order handling system. The structure identifies the system itself, the
+            nature of the entity within the system (e.g. class name) and the unique ID of the entity
+            within the system. It is anticipated that multiple external IDs can be held for a single
+            entity, e.g. if the entity passed through multiple systems on the way to the current
+            system. In this case the consumer is expected to sequence the IDs in the array in
+            reverse order of provenance, i.e. most recent system first in the list.
+          properties:
+            owner:
+              type: string
+              description: Name of the external system that owns the entity.
+              example: MagentoCommerce
+            externalIdentifierType:
+              type: string
+              description: >-
+                Type of the identification, typically would be the type of the entity within the
+                external system
+              example: ProductOrder
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          ExternalIdentifier: '#/components/schemas/ExternalIdentifier_FVO'
+    ExternalIdentifier_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_MVO'
+        - type: object
+          description: >-
+            An identification of an entity that is owned by or originates in a software system
+            different from the current system, for example a ProductOrder handed off from a commerce
+            platform into an order handling system. The structure identifies the system itself, the
+            nature of the entity within the system (e.g. class name) and the unique ID of the entity
+            within the system. It is anticipated that multiple external IDs can be held for a single
+            entity, e.g. if the entity passed through multiple systems on the way to the current
+            system. In this case the consumer is expected to sequence the IDs in the array in
+            reverse order of provenance, i.e. most recent system first in the list.
+          properties:
+            owner:
+              type: string
+              description: Name of the external system that owns the entity.
+              example: MagentoCommerce
+            externalIdentifierType:
+              type: string
+              description: >-
+                Type of the identification, typically would be the type of the entity within the
+                external system
+              example: ProductOrder
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          ExternalIdentifier: '#/components/schemas/ExternalIdentifier_MVO'
+    FaxContactMedium:
+      allOf:
+        - $ref: '#/components/schemas/ContactMedium'
+        - type: object
+          description: Describes a fax that could be used to contact a party (an individual or an organization)
+          properties:
+            faxNumber:
+              type: string
+              description: The fax number of the contact
+    FaxContactMedium_FVO:
+      allOf:
+        - $ref: '#/components/schemas/ContactMedium_FVO'
+        - type: object
+          description: Describes a fax that could be used to contact a party (an individual or an organization)
+          properties:
+            faxNumber:
+              type: string
+              description: The fax number of the contact
+    FaxContactMedium_MVO:
+      allOf:
+        - $ref: '#/components/schemas/ContactMedium_MVO'
+        - type: object
+          description: Describes a fax that could be used to contact a party (an individual or an organization)
+          properties:
+            faxNumber:
+              type: string
+              description: The fax number of the contact
+    FloatCharacteristic:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic'
+        - type: object
+          description: A characteristic which value is a Float.
+          properties:
+            value:
+              type: number
+              format: float
+              description: Value of the characteristic
+    FloatCharacteristic_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_FVO'
+        - type: object
+          description: A characteristic which value is a Float.
+          properties:
+            value:
+              type: number
+              format: float
+              description: Value of the characteristic
+          required:
+            - value
+    FloatCharacteristic_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_MVO'
+        - type: object
+          description: A characteristic which value is a Float.
+          properties:
+            value:
+              type: number
+              format: float
+              description: Value of the characteristic
+    GeographicAddressContactMedium:
+      allOf:
+        - $ref: '#/components/schemas/ContactMedium'
+        - type: object
+          description: >-
+            Describes a geographical address that could be used to contact a party (an individual or
+            an organization)
+          properties:
+            city:
+              type: string
+              description: The city
+            country:
+              type: string
+              description: The country
+            postCode:
+              type: string
+              description: Postcode
+            stateOrProvince:
+              type: string
+              description: State or province
+            street1:
+              type: string
+              description: Describes the street
+            street2:
+              type: string
+              description: Complementary street description
+            geographicAddress:
+              $ref: '#/components/schemas/GeographicAddressRef'
+    GeographicAddressContactMedium_FVO:
+      allOf:
+        - $ref: '#/components/schemas/ContactMedium_FVO'
+        - type: object
+          description: >-
+            Describes a geographical address that could be used to contact a party (an individual or
+            an organization)
+          properties:
+            city:
+              type: string
+              description: The city
+            country:
+              type: string
+              description: The country
+            postCode:
+              type: string
+              description: Postcode
+            stateOrProvince:
+              type: string
+              description: State or province
+            street1:
+              type: string
+              description: Describes the street
+            street2:
+              type: string
+              description: Complementary street description
+            geographicAddress:
+              $ref: '#/components/schemas/GeographicAddressRef_FVO'
+    GeographicAddressContactMedium_MVO:
+      allOf:
+        - $ref: '#/components/schemas/ContactMedium_MVO'
+        - type: object
+          description: >-
+            Describes a geographical address that could be used to contact a party (an individual or
+            an organization)
+          properties:
+            city:
+              type: string
+              description: The city
+            country:
+              type: string
+              description: The country
+            postCode:
+              type: string
+              description: Postcode
+            stateOrProvince:
+              type: string
+              description: State or province
+            street1:
+              type: string
+              description: Describes the street
+            street2:
+              type: string
+              description: Complementary street description
+            geographicAddress:
+              $ref: '#/components/schemas/GeographicAddressRef_MVO'
+    GeographicAddressRef:
+      type: object
+      description: Reference to a Geographic Address.
+      allOf:
+        - $ref: '#/components/schemas/EntityRef'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          GeographicAddressRef: '#/components/schemas/GeographicAddressRef'
+    GeographicAddressRef_FVO:
+      type: object
+      description: Reference to a Geographic Address.
+      allOf:
+        - $ref: '#/components/schemas/EntityRef_FVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          GeographicAddressRef: '#/components/schemas/GeographicAddressRef_FVO'
+    GeographicAddressRef_MVO:
+      type: object
+      description: Reference to a Geographic Address.
+      allOf:
+        - $ref: '#/components/schemas/EntityRef_MVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          GeographicAddressRef: '#/components/schemas/GeographicAddressRef_MVO'
+    Individual:
+      allOf:
+        - $ref: '#/components/schemas/Party'
+        - type: object
+          description: >-
+            Individual represents a single human being (a man, woman or child). The individual can
+            be a customer, an employee or any other person that the organization needs to store
+            information about.
+          properties:
+            gender:
+              type: string
+              description: Gender
+            placeOfBirth:
+              type: string
+              description: Reference to the place where the individual was born
+            countryOfBirth:
+              type: string
+              description: Country where the individual was born
+            nationality:
+              type: string
+              description: Nationality
+            maritalStatus:
+              type: string
+              description: 'Marital status (married, divorced, widow ...)'
+            birthDate:
+              type: string
+              format: date-time
+              description: Birth date
+            deathDate:
+              type: string
+              format: date-time
+              description: Date of death
+            title:
+              type: string
+              description: 'Useful for titles (aristocratic, social,...) Pr, Dr, Sir, ...'
+            aristocraticTitle:
+              type: string
+              description: 'e.g. Baron, Graf, Earl'
+            generation:
+              type: string
+              description: 'e.g.. Sr, Jr, III (the third)'
+            preferredGivenName:
+              type: string
+              description: >-
+                Contains the chosen name by which the individual prefers to be addressed. Note: This
+                name may be a name other than a given name, such as a nickname
+            familyNamePrefix:
+              type: string
+              description: Family name prefix
+            legalName:
+              type: string
+              description: Legal name or birth name (name one has for official purposes)
+            middleName:
+              type: string
+              description: Middles name or initial
+            name:
+              type: string
+              description: >-
+                Full name flatten (first, middle, and last names) - this is the name that is
+                expected to be presented in reference data types such as PartyRef, RelatedParty,
+                etc. that refer to Individual
+            formattedName:
+              type: string
+              description: >-
+                A fully formatted name in one string with all of its pieces in their proper place
+                and all of the necessary punctuation. Useful for specific contexts (Chinese,
+                Japanese, Korean)
+            location:
+              type: string
+              description: >-
+                Temporary current location of the individual (may be used if the individual has
+                approved its sharing)
+            status:
+              $ref: '#/components/schemas/IndividualStateType'
+            otherName:
+              type: array
+              items:
+                $ref: '#/components/schemas/OtherNameIndividual'
+              description: List of other names by which this individual is known
+            individualIdentification:
+              type: array
+              items:
+                $ref: '#/components/schemas/IndividualIdentification'
+              description: >-
+                List of official identifications issued to the individual, such as passport, driving
+                licence, social security number
+            disability:
+              type: array
+              items:
+                $ref: '#/components/schemas/Disability'
+              description: List of disabilities suffered by the individual
+            languageAbility:
+              type: array
+              items:
+                $ref: '#/components/schemas/LanguageAbility'
+              description: List of national languages known by the individual
+            skill:
+              type: array
+              items:
+                $ref: '#/components/schemas/Skill'
+              description: List of skills exhibited by the individual
+            familyName:
+              type: string
+              description: >-
+                Contains the non-chosen or inherited name. Also known as last name in the Western
+                context
+            givenName:
+              type: string
+              description: First name of the individual
+    IndividualIdentification:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          description: >-
+            Represents our registration of information used as proof of identity by an individual
+            (passport, national identity card, drivers license, social security number, birth
+            certificate)
+          properties:
+            identificationId:
+              type: string
+              description: Identifier
+            issuingAuthority:
+              type: string
+              description: 'Authority which has issued the identifier, such as: social security, town hall'
+            issuingDate:
+              type: string
+              format: date-time
+              description: Date at which the identifier was issued
+            identificationType:
+              type: string
+              description: >-
+                Identification type (passport, national identity card, drivers license, social
+                security number, birth certificate)
+            validFor:
+              $ref: '#/components/schemas/TimePeriod'
+            attachment:
+              $ref: '#/components/schemas/AttachmentRefOrValue'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          IndividualIdentification: '#/components/schemas/IndividualIdentification'
+    IndividualIdentification_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          description: >-
+            Represents our registration of information used as proof of identity by an individual
+            (passport, national identity card, drivers license, social security number, birth
+            certificate)
+          properties:
+            identificationId:
+              type: string
+              description: Identifier
+            issuingAuthority:
+              type: string
+              description: 'Authority which has issued the identifier, such as: social security, town hall'
+            issuingDate:
+              type: string
+              format: date-time
+              description: Date at which the identifier was issued
+            identificationType:
+              type: string
+              description: >-
+                Identification type (passport, national identity card, drivers license, social
+                security number, birth certificate)
+            validFor:
+              $ref: '#/components/schemas/TimePeriod'
+            attachment:
+              $ref: '#/components/schemas/AttachmentRefOrValue_FVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          IndividualIdentification: '#/components/schemas/IndividualIdentification_FVO'
+    IndividualIdentification_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_MVO'
+        - type: object
+          description: >-
+            Represents our registration of information used as proof of identity by an individual
+            (passport, national identity card, drivers license, social security number, birth
+            certificate)
+          properties:
+            identificationId:
+              type: string
+              description: Identifier
+            issuingAuthority:
+              type: string
+              description: 'Authority which has issued the identifier, such as: social security, town hall'
+            issuingDate:
+              type: string
+              format: date-time
+              description: Date at which the identifier was issued
+            identificationType:
+              type: string
+              description: >-
+                Identification type (passport, national identity card, drivers license, social
+                security number, birth certificate)
+            validFor:
+              $ref: '#/components/schemas/TimePeriod'
+            attachment:
+              $ref: '#/components/schemas/AttachmentRefOrValue_MVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          IndividualIdentification: '#/components/schemas/IndividualIdentification_MVO'
+    IndividualStateType:
+      enum:
+        - initialized
+        - validated
+        - deceased
+      type: string
+      description: Valid values for the lifecycle state of the individual
+    Individual_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Party_FVO'
+        - type: object
+          description: >-
+            Individual represents a single human being (a man, woman or child). The individual can
+            be a customer, an employee or any other person that the organization needs to store
+            information about.
+          properties:
+            gender:
+              type: string
+              description: Gender
+            placeOfBirth:
+              type: string
+              description: Reference to the place where the individual was born
+            countryOfBirth:
+              type: string
+              description: Country where the individual was born
+            nationality:
+              type: string
+              description: Nationality
+            maritalStatus:
+              type: string
+              description: 'Marital status (married, divorced, widow ...)'
+            birthDate:
+              type: string
+              format: date-time
+              description: Birth date
+            deathDate:
+              type: string
+              format: date-time
+              description: Date of death
+            title:
+              type: string
+              description: 'Useful for titles (aristocratic, social,...) Pr, Dr, Sir, ...'
+            aristocraticTitle:
+              type: string
+              description: 'e.g. Baron, Graf, Earl'
+            generation:
+              type: string
+              description: 'e.g.. Sr, Jr, III (the third)'
+            preferredGivenName:
+              type: string
+              description: >-
+                Contains the chosen name by which the individual prefers to be addressed. Note: This
+                name may be a name other than a given name, such as a nickname
+            familyNamePrefix:
+              type: string
+              description: Family name prefix
+            legalName:
+              type: string
+              description: Legal name or birth name (name one has for official purposes)
+            middleName:
+              type: string
+              description: Middles name or initial
+            name:
+              type: string
+              description: >-
+                Full name flatten (first, middle, and last names) - this is the name that is
+                expected to be presented in reference data types such as PartyRef, RelatedParty,
+                etc. that refer to Individual
+            formattedName:
+              type: string
+              description: >-
+                A fully formatted name in one string with all of its pieces in their proper place
+                and all of the necessary punctuation. Useful for specific contexts (Chinese,
+                Japanese, Korean)
+            location:
+              type: string
+              description: >-
+                Temporary current location of the individual (may be used if the individual has
+                approved its sharing)
+            status:
+              $ref: '#/components/schemas/IndividualStateType'
+            otherName:
+              type: array
+              items:
+                $ref: '#/components/schemas/OtherNameIndividual'
+              description: List of other names by which this individual is known
+            individualIdentification:
+              type: array
+              items:
+                $ref: '#/components/schemas/IndividualIdentification_FVO'
+              description: >-
+                List of official identifications issued to the individual, such as passport, driving
+                licence, social security number
+            disability:
+              type: array
+              items:
+                $ref: '#/components/schemas/Disability'
+              description: List of disabilities suffered by the individual
+            languageAbility:
+              type: array
+              items:
+                $ref: '#/components/schemas/LanguageAbility'
+              description: List of national languages known by the individual
+            skill:
+              type: array
+              items:
+                $ref: '#/components/schemas/Skill'
+              description: List of skills exhibited by the individual
+            familyName:
+              type: string
+              description: >-
+                Contains the non-chosen or inherited name. Also known as last name in the Western
+                context
+            givenName:
+              type: string
+              description: First name of the individual
+    Individual_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Party_MVO'
+        - type: object
+          description: >-
+            Individual represents a single human being (a man, woman or child). The individual can
+            be a customer, an employee or any other person that the organization needs to store
+            information about.
+          properties:
+            gender:
+              type: string
+              description: Gender
+            placeOfBirth:
+              type: string
+              description: Reference to the place where the individual was born
+            countryOfBirth:
+              type: string
+              description: Country where the individual was born
+            nationality:
+              type: string
+              description: Nationality
+            maritalStatus:
+              type: string
+              description: 'Marital status (married, divorced, widow ...)'
+            birthDate:
+              type: string
+              format: date-time
+              description: Birth date
+            deathDate:
+              type: string
+              format: date-time
+              description: Date of death
+            title:
+              type: string
+              description: 'Useful for titles (aristocratic, social,...) Pr, Dr, Sir, ...'
+            aristocraticTitle:
+              type: string
+              description: 'e.g. Baron, Graf, Earl'
+            generation:
+              type: string
+              description: 'e.g.. Sr, Jr, III (the third)'
+            preferredGivenName:
+              type: string
+              description: >-
+                Contains the chosen name by which the individual prefers to be addressed. Note: This
+                name may be a name other than a given name, such as a nickname
+            familyNamePrefix:
+              type: string
+              description: Family name prefix
+            legalName:
+              type: string
+              description: Legal name or birth name (name one has for official purposes)
+            middleName:
+              type: string
+              description: Middles name or initial
+            name:
+              type: string
+              description: >-
+                Full name flatten (first, middle, and last names) - this is the name that is
+                expected to be presented in reference data types such as PartyRef, RelatedParty,
+                etc. that refer to Individual
+            formattedName:
+              type: string
+              description: >-
+                A fully formatted name in one string with all of its pieces in their proper place
+                and all of the necessary punctuation. Useful for specific contexts (Chinese,
+                Japanese, Korean)
+            location:
+              type: string
+              description: >-
+                Temporary current location of the individual (may be used if the individual has
+                approved its sharing)
+            status:
+              $ref: '#/components/schemas/IndividualStateType'
+            otherName:
+              type: array
+              items:
+                $ref: '#/components/schemas/OtherNameIndividual'
+              description: List of other names by which this individual is known
+            individualIdentification:
+              type: array
+              items:
+                $ref: '#/components/schemas/IndividualIdentification_MVO'
+              description: >-
+                List of official identifications issued to the individual, such as passport, driving
+                licence, social security number
+            disability:
+              type: array
+              items:
+                $ref: '#/components/schemas/Disability'
+              description: List of disabilities suffered by the individual
+            languageAbility:
+              type: array
+              items:
+                $ref: '#/components/schemas/LanguageAbility'
+              description: List of national languages known by the individual
+            skill:
+              type: array
+              items:
+                $ref: '#/components/schemas/Skill'
+              description: List of skills exhibited by the individual
+            familyName:
+              type: string
+              description: >-
+                Contains the non-chosen or inherited name. Also known as last name in the Western
+                context
+            givenName:
+              type: string
+              description: First name of the individual
+    IntegerArrayCharacteristic:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic'
+        - type: object
+          description: A characteristic which value is an array of Integer(s).
+          properties:
+            value:
+              type: array
+              description: A characteristic which value is an array of Integer(s).
+              items:
+                type: integer
+                description: Characteristic value
+    IntegerArrayCharacteristic_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_FVO'
+        - type: object
+          description: A characteristic which value is an array of Integer(s).
+          properties:
+            value:
+              type: array
+              description: A characteristic which value is an array of Integer(s).
+              items:
+                type: integer
+                description: Characteristic value
+          required:
+            - value
+    IntegerArrayCharacteristic_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_MVO'
+        - type: object
+          description: A characteristic which value is an array of Integer(s).
+          properties:
+            value:
+              type: array
+              description: A characteristic which value is an array of Integer(s).
+              items:
+                type: integer
+                description: Characteristic value
+    IntegerCharacteristic:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic'
+        - type: object
+          description: A characteristic which value is a Integer.
+          properties:
+            value:
+              type: integer
+              description: Value of the characteristic
+    IntegerCharacteristic_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_FVO'
+        - type: object
+          description: A characteristic which value is a Integer.
+          properties:
+            value:
+              type: integer
+              description: Value of the characteristic
+          required:
+            - value
+    IntegerCharacteristic_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_MVO'
+        - type: object
+          description: A characteristic which value is a Integer.
+          properties:
+            value:
+              type: integer
+              description: Value of the characteristic
+    LanguageAbility:
+      type: object
+      description: Ability of an individual to understand or converse in a language.
+      properties:
+        languageCode:
+          type: string
+          description: Language code (RFC 5646)
+        languageName:
+          type: string
+          description: Language name
+        isFavouriteLanguage:
+          type: boolean
+          description: >-
+            A “true” value specifies whether the language is considered by the individual as his
+            favourite one
+        writingProficiency:
+          type: string
+          description: Writing proficiency evaluated for this language
+        readingProficiency:
+          type: string
+          description: Reading proficiency evaluated for this language
+        speakingProficiency:
+          type: string
+          description: Speaking proficiency evaluated for this language
+        listeningProficiency:
+          type: string
+          description: Listening proficiency evaluated for this language
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+    NumberArrayCharacteristic:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic'
+        - type: object
+          description: A characteristic which value is an array of Number(s).
+          properties:
+            value:
+              type: array
+              description: A characteristic which value is an array of Number(s).
+              items:
+                type: number
+                description: Characteristic value
+    NumberArrayCharacteristic_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_FVO'
+        - type: object
+          description: A characteristic which value is an array of Number(s).
+          properties:
+            value:
+              type: array
+              description: A characteristic which value is an array of Number(s).
+              items:
+                type: number
+                description: Characteristic value
+          required:
+            - value
+    NumberArrayCharacteristic_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_MVO'
+        - type: object
+          description: A characteristic which value is an array of Number(s).
+          properties:
+            value:
+              type: array
+              description: A characteristic which value is an array of Number(s).
+              items:
+                type: number
+                description: Characteristic value
+    NumberCharacteristic:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic'
+        - type: object
+          description: A characteristic which value is a Number.
+          properties:
+            value:
+              type: number
+              description: Value of the characteristic
+    NumberCharacteristic_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_FVO'
+        - type: object
+          description: A characteristic which value is a Number.
+          properties:
+            value:
+              type: number
+              description: Value of the characteristic
+          required:
+            - value
+    NumberCharacteristic_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_MVO'
+        - type: object
+          description: A characteristic which value is a Number.
+          properties:
+            value:
+              type: number
+              description: Value of the characteristic
+    ObjectArrayCharacteristic:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic'
+        - type: object
+          description: A characteristic which value is an array of Object(s).
+          properties:
+            value:
+              type: array
+              description: Collection of characteristic values
+              items:
+                type: object
+                description: Characteristic value
+    ObjectArrayCharacteristic_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_FVO'
+        - type: object
+          description: A characteristic which value is an array of Object(s).
+          properties:
+            value:
+              type: array
+              description: Collection of characteristic values
+              items:
+                type: object
+                description: Characteristic value
+          required:
+            - value
+    ObjectArrayCharacteristic_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_MVO'
+        - type: object
+          description: A characteristic which value is an array of Object(s).
+          properties:
+            value:
+              type: array
+              description: Collection of characteristic values
+              items:
+                type: object
+                description: Characteristic value
+    ObjectCharacteristic:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic'
+        - type: object
+          description: A characteristic which value is a Object.
+          properties:
+            value:
+              type: object
+              description: Value of the characteristic
+    ObjectCharacteristic_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_FVO'
+        - type: object
+          description: A characteristic which value is a Object.
+          properties:
+            value:
+              type: object
+              description: Value of the characteristic
+          required:
+            - value
+    ObjectCharacteristic_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_MVO'
+        - type: object
+          description: A characteristic which value is a Object.
+          properties:
+            value:
+              type: object
+              description: Value of the characteristic
+    Organization:
+      allOf:
+        - $ref: '#/components/schemas/Party'
+        - type: object
+          description: >-
+            Organization represents a group of people identified by shared interests or purpose.
+            Examples include business, department and enterprise. Because of the complex nature of
+            many businesses, both organizations and organization units are represented by the same
+            data.
+          properties:
+            isLegalEntity:
+              type: boolean
+              description: >-
+                If value is true, the organization is a legal entity known by a national
+                referential.
+            isHeadOffice:
+              type: boolean
+              description: 'If value is true, the organization is the head office'
+            organizationType:
+              type: string
+              description: 'Type of Organization (company, department...)'
+            existsDuring:
+              $ref: '#/components/schemas/TimePeriod'
+            name:
+              type: string
+              description: Organization name (department name for example)
+            nameType:
+              type: string
+              description: 'Type of the name : Co, Inc, Ltd, etc.'
+            status:
+              $ref: '#/components/schemas/OrganizationStateType'
+            otherName:
+              type: array
+              items:
+                $ref: '#/components/schemas/OtherNameOrganization'
+              description: List of additional names by which the organization is known
+            organizationIdentification:
+              type: array
+              items:
+                $ref: '#/components/schemas/OrganizationIdentification'
+              description: >-
+                List of official identifiers given to the organization, for example company number
+                in the registry of companies
+            organizationChildRelationship:
+              type: array
+              items:
+                $ref: '#/components/schemas/OrganizationChildRelationship'
+              description: >-
+                List of organizations that are contained within this organization. For example if
+                this organization is the Legal Department, the child organizations might include
+                Claims, Courts, Contracts
+            organizationParentRelationship:
+              $ref: '#/components/schemas/OrganizationParentRelationship'
+            tradingName:
+              type: string
+              description: Name that the organization (unit) trades under
+    OrganizationChildRelationship:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          description: Child references of an organization in a structure of organizations.
+          properties:
+            relationshipType:
+              type: string
+              description: >-
+                Type of the relationship. Could be juridical, hierarchical, geographical, functional
+                for example.
+            organization:
+              $ref: '#/components/schemas/OrganizationRef'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          OrganizationChildRelationship: '#/components/schemas/OrganizationChildRelationship'
+    OrganizationChildRelationship_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          description: Child references of an organization in a structure of organizations.
+          properties:
+            relationshipType:
+              type: string
+              description: >-
+                Type of the relationship. Could be juridical, hierarchical, geographical, functional
+                for example.
+            organization:
+              $ref: '#/components/schemas/OrganizationRef_FVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          OrganizationChildRelationship: '#/components/schemas/OrganizationChildRelationship_FVO'
+    OrganizationChildRelationship_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_MVO'
+        - type: object
+          description: Child references of an organization in a structure of organizations.
+          properties:
+            relationshipType:
+              type: string
+              description: >-
+                Type of the relationship. Could be juridical, hierarchical, geographical, functional
+                for example.
+            organization:
+              $ref: '#/components/schemas/OrganizationRef_MVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          OrganizationChildRelationship: '#/components/schemas/OrganizationChildRelationship_MVO'
+    OrganizationIdentification:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          description: Represents our registration of information used as proof of identity by an organization
+          properties:
+            identificationId:
+              type: string
+              description: Identifier
+            issuingAuthority:
+              type: string
+              description: Authority which has issued the identifier (chamber of commerce...)
+            issuingDate:
+              type: string
+              format: date-time
+              description: Date at which the identifier was issued
+            identificationType:
+              type: string
+              description: >-
+                Type of identification information used to identify the company in a country or
+                internationally
+            validFor:
+              $ref: '#/components/schemas/TimePeriod'
+            attachment:
+              $ref: '#/components/schemas/AttachmentRefOrValue'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          OrganizationIdentification: '#/components/schemas/OrganizationIdentification'
+    OrganizationIdentification_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          description: Represents our registration of information used as proof of identity by an organization
+          properties:
+            identificationId:
+              type: string
+              description: Identifier
+            issuingAuthority:
+              type: string
+              description: Authority which has issued the identifier (chamber of commerce...)
+            issuingDate:
+              type: string
+              format: date-time
+              description: Date at which the identifier was issued
+            identificationType:
+              type: string
+              description: >-
+                Type of identification information used to identify the company in a country or
+                internationally
+            validFor:
+              $ref: '#/components/schemas/TimePeriod'
+            attachment:
+              $ref: '#/components/schemas/AttachmentRefOrValue_FVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          OrganizationIdentification: '#/components/schemas/OrganizationIdentification_FVO'
+    OrganizationIdentification_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_MVO'
+        - type: object
+          description: Represents our registration of information used as proof of identity by an organization
+          properties:
+            identificationId:
+              type: string
+              description: Identifier
+            issuingAuthority:
+              type: string
+              description: Authority which has issued the identifier (chamber of commerce...)
+            issuingDate:
+              type: string
+              format: date-time
+              description: Date at which the identifier was issued
+            identificationType:
+              type: string
+              description: >-
+                Type of identification information used to identify the company in a country or
+                internationally
+            validFor:
+              $ref: '#/components/schemas/TimePeriod'
+            attachment:
+              $ref: '#/components/schemas/AttachmentRefOrValue_MVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          OrganizationIdentification: '#/components/schemas/OrganizationIdentification_MVO'
+    OrganizationParentRelationship:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          description: Parent references of an organization in a structure of organizations.
+          properties:
+            relationshipType:
+              type: string
+              description: >-
+                Type of the relationship. Could be juridical, hierarchical, geographical, functional
+                for example.
+            organization:
+              $ref: '#/components/schemas/OrganizationRef'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          OrganizationParentRelationship: '#/components/schemas/OrganizationParentRelationship'
+    OrganizationParentRelationship_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          description: Parent references of an organization in a structure of organizations.
+          properties:
+            relationshipType:
+              type: string
+              description: >-
+                Type of the relationship. Could be juridical, hierarchical, geographical, functional
+                for example.
+            organization:
+              $ref: '#/components/schemas/OrganizationRef_FVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          OrganizationParentRelationship: '#/components/schemas/OrganizationParentRelationship_FVO'
+    OrganizationParentRelationship_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_MVO'
+        - type: object
+          description: Parent references of an organization in a structure of organizations.
+          properties:
+            relationshipType:
+              type: string
+              description: >-
+                Type of the relationship. Could be juridical, hierarchical, geographical, functional
+                for example.
+            organization:
+              $ref: '#/components/schemas/OrganizationRef_MVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          OrganizationParentRelationship: '#/components/schemas/OrganizationParentRelationship_MVO'
+    OrganizationRef:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/EntityRef'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          OrganizationRef: '#/components/schemas/OrganizationRef'
+    OrganizationRef_FVO:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/EntityRef_FVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          OrganizationRef: '#/components/schemas/OrganizationRef_FVO'
+    OrganizationRef_MVO:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/EntityRef_MVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          OrganizationRef: '#/components/schemas/OrganizationRef_MVO'
+    OrganizationStateType:
+      enum:
+        - initialized
+        - validated
+        - closed
+      type: string
+      description: Valid values for the lifecycle state of the organization
+    Organization_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Party_FVO'
+        - type: object
+          description: >-
+            Organization represents a group of people identified by shared interests or purpose.
+            Examples include business, department and enterprise. Because of the complex nature of
+            many businesses, both organizations and organization units are represented by the same
+            data.
+          properties:
+            isLegalEntity:
+              type: boolean
+              description: >-
+                If value is true, the organization is a legal entity known by a national
+                referential.
+            isHeadOffice:
+              type: boolean
+              description: 'If value is true, the organization is the head office'
+            organizationType:
+              type: string
+              description: 'Type of Organization (company, department...)'
+            existsDuring:
+              $ref: '#/components/schemas/TimePeriod'
+            name:
+              type: string
+              description: Organization name (department name for example)
+            nameType:
+              type: string
+              description: 'Type of the name : Co, Inc, Ltd, etc.'
+            status:
+              $ref: '#/components/schemas/OrganizationStateType'
+            otherName:
+              type: array
+              items:
+                $ref: '#/components/schemas/OtherNameOrganization'
+              description: List of additional names by which the organization is known
+            organizationIdentification:
+              type: array
+              items:
+                $ref: '#/components/schemas/OrganizationIdentification_FVO'
+              description: >-
+                List of official identifiers given to the organization, for example company number
+                in the registry of companies
+            organizationChildRelationship:
+              type: array
+              items:
+                $ref: '#/components/schemas/OrganizationChildRelationship_FVO'
+              description: >-
+                List of organizations that are contained within this organization. For example if
+                this organization is the Legal Department, the child organizations might include
+                Claims, Courts, Contracts
+            organizationParentRelationship:
+              $ref: '#/components/schemas/OrganizationParentRelationship_FVO'
+            tradingName:
+              type: string
+              description: Name that the organization (unit) trades under
+    Organization_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Party_MVO'
+        - type: object
+          description: >-
+            Organization represents a group of people identified by shared interests or purpose.
+            Examples include business, department and enterprise. Because of the complex nature of
+            many businesses, both organizations and organization units are represented by the same
+            data.
+          properties:
+            isLegalEntity:
+              type: boolean
+              description: >-
+                If value is true, the organization is a legal entity known by a national
+                referential.
+            isHeadOffice:
+              type: boolean
+              description: 'If value is true, the organization is the head office'
+            organizationType:
+              type: string
+              description: 'Type of Organization (company, department...)'
+            existsDuring:
+              $ref: '#/components/schemas/TimePeriod'
+            name:
+              type: string
+              description: Organization name (department name for example)
+            nameType:
+              type: string
+              description: 'Type of the name : Co, Inc, Ltd, etc.'
+            status:
+              $ref: '#/components/schemas/OrganizationStateType'
+            otherName:
+              type: array
+              items:
+                $ref: '#/components/schemas/OtherNameOrganization_MVO'
+              description: List of additional names by which the organization is known
+            organizationIdentification:
+              type: array
+              items:
+                $ref: '#/components/schemas/OrganizationIdentification_MVO'
+              description: >-
+                List of official identifiers given to the organization, for example company number
+                in the registry of companies
+            organizationChildRelationship:
+              type: array
+              items:
+                $ref: '#/components/schemas/OrganizationChildRelationship_MVO'
+              description: >-
+                List of organizations that are contained within this organization. For example if
+                this organization is the Legal Department, the child organizations might include
+                Claims, Courts, Contracts
+            organizationParentRelationship:
+              $ref: '#/components/schemas/OrganizationParentRelationship_MVO'
+            tradingName:
+              type: string
+              description: Name that the organization (unit) trades under
+    OtherNameIndividual:
+      type: object
+      description: >-
+        Keeps track of other names, for example the old name of a woman before marriage or an artist
+        name.
+      properties:
+        title:
+          type: string
+          description: 'Use for titles (aristrocatic, social, ...): Pr, Dr, Sir,....'
+        aristocraticTitle:
+          type: string
+          description: 'e.g. Baron, Graf, Earl, etc.'
+        generation:
+          type: string
+          description: 'e.g. Sr, Jr, etc.'
+        givenName:
+          type: string
+          description: First name
+        preferredGivenName:
+          type: string
+          description: >-
+            Contains the chosen name by which the person prefers to be addressed. Note: This name
+            may be a name other than a given name, such as a nickname
+        familyNamePrefix:
+          type: string
+          description: Family name prefix
+        familyName:
+          type: string
+          description: >-
+            Contains the non-chosen or inherited name. Also known as last name in the Western
+            context
+        legalName:
+          type: string
+          description: Legal name or birth name (name one has for official purposes)
+        middleName:
+          type: string
+          description: Middle name or initial
+        fullName:
+          type: string
+          description: 'Full name flatten (first, middle, and last names)'
+        formattedName:
+          type: string
+          description: >-
+            . A fully formatted name in one string with all of its pieces in their proper place and
+            all of the necessary punctuation. Useful for specific contexts (Chinese, Japanese,
+            Korean, etc.)
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+    OtherNameOrganization:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          description: 'Keeps track of other names, for example the old name of an organization.'
+          properties:
+            tradingName:
+              type: string
+              description: The name that the organization trades under
+            nameType:
+              type: string
+              description: 'Co. , Inc. , Ltd. , Pty Ltd. , Plc; , Gmbh'
+            name:
+              type: string
+              description: Organization name (department name for example)
+            validFor:
+              $ref: '#/components/schemas/TimePeriod'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          OtherNameOrganization: '#/components/schemas/OtherNameOrganization'
+    OtherNameOrganization_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_MVO'
+        - type: object
+          description: 'Keeps track of other names, for example the old name of an organization.'
+          properties:
+            tradingName:
+              type: string
+              description: The name that the organization trades under
+            nameType:
+              type: string
+              description: 'Co. , Inc. , Ltd. , Pty Ltd. , Plc; , Gmbh'
+            name:
+              type: string
+              description: Organization name (department name for example)
+            validFor:
+              $ref: '#/components/schemas/TimePeriod'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          OtherNameOrganization: '#/components/schemas/OtherNameOrganization_MVO'
+    Party:
+      allOf:
+        - $ref: '#/components/schemas/Entity'
+        - type: object
+          description: >-
+            Generic and Abstract Party structure used to define commonalities between sub concepts
+            of Individual and Organization.
+          properties:
+            externalReference:
+              type: array
+              items:
+                $ref: '#/components/schemas/ExternalIdentifier'
+              description: >-
+                List of identifiers of the Party in an external system, for example when party
+                information is imported from a commerce system
+            partyCharacteristic:
+              type: array
+              items:
+                $ref: '#/components/schemas/Characteristic'
+              description: List of additional characteristics that a Party can take on.
+            taxExemptionCertificate:
+              type: array
+              items:
+                $ref: '#/components/schemas/TaxExemptionCertificate'
+              description: >-
+                List of tax exemptions granted to the party. For example, a war veteran might have
+                partial exemption from state tax and a full exemption from federal tax
+            creditRating:
+              type: array
+              items:
+                $ref: '#/components/schemas/PartyCreditProfile'
+              description: >-
+                List of credit profiles and scores for the party, typically received from an
+                external credit broker
+            relatedParty:
+              type: array
+              items:
+                $ref: '#/components/schemas/RelatedPartyOrPartyRole'
+              description: List of parties and/or party roles related to this party
+            contactMedium:
+              type: array
+              items:
+                $ref: '#/components/schemas/ContactMedium'
+              description: 'List of means for contacting the party, e.g. mobile phone, email address'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Party: '#/components/schemas/Party'
+          Individual: '#/components/schemas/Individual'
+          Organization: '#/components/schemas/Organization'
+    PartyCreditProfile:
+      allOf:
+        - $ref: '#/components/schemas/Entity'
+        - type: object
+          description: >-
+            An individual might be evaluated for its worthiness and this evaluation might be based
+            on a credit rating given by a credit agency.
+          properties:
+            creditAgencyName:
+              type: string
+              description: Name of the credit agency giving the score
+            creditAgencyType:
+              type: string
+              description: Type of the credit agency giving the score
+            ratingReference:
+              type: string
+              description: Reference corresponding to the credit rating
+            ratingScore:
+              type: integer
+              format: int32
+              description: >-
+                A measure of a party's creditworthiness calculated on the basis of a combination of
+                factors such as their income and credit history
+            validFor:
+              $ref: '#/components/schemas/TimePeriod'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          PartyCreditProfile: '#/components/schemas/PartyCreditProfile'
+    PartyCreditProfile_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Entity'
+        - type: object
+          description: >-
+            An individual might be evaluated for its worthiness and this evaluation might be based
+            on a credit rating given by a credit agency.
+          properties:
+            creditAgencyName:
+              type: string
+              description: Name of the credit agency giving the score
+            creditAgencyType:
+              type: string
+              description: Type of the credit agency giving the score
+            ratingReference:
+              type: string
+              description: Reference corresponding to the credit rating
+            ratingScore:
+              type: integer
+              format: int32
+              description: >-
+                A measure of a party's creditworthiness calculated on the basis of a combination of
+                factors such as their income and credit history
+            validFor:
+              $ref: '#/components/schemas/TimePeriod'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          PartyCreditProfile: '#/components/schemas/PartyCreditProfile_MVO'
+    PartyOrPartyRole:
+      type: object
+      description: ''
+      oneOf:
+        - $ref: '#/components/schemas/PartyRef'
+        - $ref: '#/components/schemas/PartyRoleRef'
+        - $ref: '#/components/schemas/Individual'
+        - $ref: '#/components/schemas/Organization'
+        - $ref: '#/components/schemas/PartyRole'
+        - $ref: '#/components/schemas/Supplier'
+        - $ref: '#/components/schemas/BusinessPartner'
+        - $ref: '#/components/schemas/Consumer'
+        - $ref: '#/components/schemas/Producer'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          PartyRef: '#/components/schemas/PartyRef'
+          PartyRoleRef: '#/components/schemas/PartyRoleRef'
+          Individual: '#/components/schemas/Individual'
+          Organization: '#/components/schemas/Organization'
+          PartyRole: '#/components/schemas/PartyRole'
+          Supplier: '#/components/schemas/Supplier'
+          BusinessPartner: '#/components/schemas/BusinessPartner'
+          Consumer: '#/components/schemas/Consumer'
+          Producer: '#/components/schemas/Producer'
+          Customer: '#/components/schemas/Customer'
+    PartyOrPartyRole_FVO:
+      type: object
+      description: ''
+      oneOf:
+        - $ref: '#/components/schemas/PartyRef_FVO'
+        - $ref: '#/components/schemas/PartyRoleRef_FVO'
+        - $ref: '#/components/schemas/Individual_FVO'
+        - $ref: '#/components/schemas/Organization_FVO'
+        - $ref: '#/components/schemas/PartyRole_FVO'
+        - $ref: '#/components/schemas/Supplier_FVO'
+        - $ref: '#/components/schemas/BusinessPartner_FVO'
+        - $ref: '#/components/schemas/Consumer_FVO'
+        - $ref: '#/components/schemas/Producer_FVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          PartyRef: '#/components/schemas/PartyRef_FVO'
+          PartyRoleRef: '#/components/schemas/PartyRoleRef_FVO'
+          Individual: '#/components/schemas/Individual_FVO'
+          Organization: '#/components/schemas/Organization_FVO'
+          PartyRole: '#/components/schemas/PartyRole_FVO'
+          Supplier: '#/components/schemas/Supplier_FVO'
+          BusinessPartner: '#/components/schemas/BusinessPartner_FVO'
+          Consumer: '#/components/schemas/Consumer_FVO'
+          Producer: '#/components/schemas/Producer_FVO'
+          Customer: '#/components/schemas/Customer_FVO'
+    PartyOrPartyRole_MVO:
+      type: object
+      description: ''
+      oneOf:
+        - $ref: '#/components/schemas/PartyRef_MVO'
+        - $ref: '#/components/schemas/PartyRoleRef_MVO'
+        - $ref: '#/components/schemas/Individual_MVO'
+        - $ref: '#/components/schemas/Organization_MVO'
+        - $ref: '#/components/schemas/PartyRole_MVO'
+        - $ref: '#/components/schemas/Supplier_MVO'
+        - $ref: '#/components/schemas/BusinessPartner_MVO'
+        - $ref: '#/components/schemas/Consumer_MVO'
+        - $ref: '#/components/schemas/Producer_MVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          PartyRef: '#/components/schemas/PartyRef_MVO'
+          PartyRoleRef: '#/components/schemas/PartyRoleRef_MVO'
+          Individual: '#/components/schemas/Individual_MVO'
+          Organization: '#/components/schemas/Organization_MVO'
+          PartyRole: '#/components/schemas/PartyRole_MVO'
+          Supplier: '#/components/schemas/Supplier_MVO'
+          BusinessPartner: '#/components/schemas/BusinessPartner_MVO'
+          Consumer: '#/components/schemas/Consumer_MVO'
+          Producer: '#/components/schemas/Producer_MVO'
+          Customer: '#/components/schemas/Customer_MVO'
+    PartyRef:
+      type: object
+      description: A Party reference
+      allOf:
+        - $ref: '#/components/schemas/EntityRef'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          PartyRef: '#/components/schemas/PartyRef'
+    PartyRefOrPartyRoleRef:
+      type: object
+      description: ''
+      oneOf:
+        - $ref: '#/components/schemas/PartyRef'
+        - $ref: '#/components/schemas/PartyRoleRef'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          PartyRef: '#/components/schemas/PartyRef'
+          PartyRoleRef: '#/components/schemas/PartyRoleRef'
+    PartyRef_FVO:
+      type: object
+      description: A Party reference
+      allOf:
+        - $ref: '#/components/schemas/EntityRef_FVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          PartyRef: '#/components/schemas/PartyRef_FVO'
+    PartyRef_MVO:
+      type: object
+      description: A Party reference
+      allOf:
+        - $ref: '#/components/schemas/EntityRef_MVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          PartyRef: '#/components/schemas/PartyRef_MVO'
+    PartyRole:
+      allOf:
+        - $ref: '#/components/schemas/Entity'
+        - type: object
+          description: The part played by a party in a given context.
+          properties:
+            name:
+              type: string
+              description: >-
+                A word, term, or phrase by which the PartyRole is known and distinguished from other
+                PartyRoles. It's the name of the PartyRole unique entity.
+            description:
+              type: string
+              description: A description of the PartyRole.
+            role:
+              type: string
+              description: >-
+                Role played by the engagedParty in this context. As role is defined by
+                partyRoleSpecification, this role attribute can be used to precise the role defined
+                by partyRoleSpecification, or it can be used to define the role in case there is no
+                partyRoleSpecification.
+            engagedParty:
+              $ref: '#/components/schemas/PartyRef'
+            partyRoleSpecification:
+              $ref: '#/components/schemas/PartyRoleSpecificationRef'
+            characteristic:
+              type: array
+              items:
+                $ref: '#/components/schemas/Characteristic'
+              description: Describes the characteristic of a party role.
+            account:
+              type: array
+              description: Collection of accounts
+              items:
+                $ref: '#/components/schemas/AccountRef'
+            agreement:
+              type: array
+              description: Collection of agreements
+              items:
+                $ref: '#/components/schemas/AgreementRef'
+            contactMedium:
+              type: array
+              description: Collection of contact mediums
+              items:
+                $ref: '#/components/schemas/ContactMedium'
+            paymentMethod:
+              type: array
+              description: Collection of payment methods
+              items:
+                $ref: '#/components/schemas/PaymentMethodRef'
+            creditProfile:
+              type: array
+              description: Collection of credit profiles
+              items:
+                $ref: '#/components/schemas/CreditProfile'
+            relatedParty:
+              type: array
+              description: Collection of related parties
+              items:
+                $ref: '#/components/schemas/RelatedPartyOrPartyRole'
+            status:
+              type: string
+              description: Used to track the lifecycle status of the party role.
+            statusReason:
+              type: string
+              description: >-
+                A string providing an explanation on the value of the status lifecycle. For instance
+                if the status is Rejected, statusReason will provide the reason for rejection.
+            validFor:
+              $ref: '#/components/schemas/TimePeriod'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          PartyRole: '#/components/schemas/PartyRole'
+          Customer: '#/components/schemas/Customer'
+          Supplier: '#/components/schemas/Supplier'
+          BusinessPartner: '#/components/schemas/BusinessPartner'
+          Consumer: '#/components/schemas/Consumer'
+          Producer: '#/components/schemas/Producer'
+    PartyRoleRef:
+      allOf:
+        - $ref: '#/components/schemas/EntityRef'
+        - type: object
+          description: >-
+            Party role reference. A party role represents the part played by a party in a given
+            context.
+          properties:
+            partyId:
+              type: string
+              description: The identifier of the engaged party that is linked to the PartyRole object.
+            partyName:
+              type: string
+              description: The name of the engaged party that is linked to the PartyRole object.
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          PartyRoleRef: '#/components/schemas/PartyRoleRef'
+    PartyRoleRef_FVO:
+      allOf:
+        - $ref: '#/components/schemas/EntityRef_FVO'
+        - type: object
+          description: >-
+            Party role reference. A party role represents the part played by a party in a given
+            context.
+          properties:
+            partyId:
+              type: string
+              description: The identifier of the engaged party that is linked to the PartyRole object.
+            partyName:
+              type: string
+              description: The name of the engaged party that is linked to the PartyRole object.
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          PartyRoleRef: '#/components/schemas/PartyRoleRef_FVO'
+    PartyRoleRef_MVO:
+      allOf:
+        - $ref: '#/components/schemas/EntityRef_MVO'
+        - type: object
+          description: >-
+            Party role reference. A party role represents the part played by a party in a given
+            context.
+          properties:
+            partyId:
+              type: string
+              description: The identifier of the engaged party that is linked to the PartyRole object.
+            partyName:
+              type: string
+              description: The name of the engaged party that is linked to the PartyRole object.
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          PartyRoleRef: '#/components/schemas/PartyRoleRef_MVO'
+    PartyRoleSpecificationRef:
+      type: object
+      description: >-
+        Party role specification reference. A party role specification gives additional details on
+        the part played by a party in a given context.
+      allOf:
+        - $ref: '#/components/schemas/EntityRef'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          PartyRoleSpecificationRef: '#/components/schemas/PartyRoleSpecificationRef'
+    PartyRoleSpecificationRef_FVO:
+      type: object
+      description: >-
+        Party role specification reference. A party role specification gives additional details on
+        the part played by a party in a given context.
+      allOf:
+        - $ref: '#/components/schemas/EntityRef_FVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          PartyRoleSpecificationRef: '#/components/schemas/PartyRoleSpecificationRef_FVO'
+    PartyRoleSpecificationRef_MVO:
+      type: object
+      description: >-
+        Party role specification reference. A party role specification gives additional details on
+        the part played by a party in a given context.
+      allOf:
+        - $ref: '#/components/schemas/EntityRef_MVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          PartyRoleSpecificationRef: '#/components/schemas/PartyRoleSpecificationRef_MVO'
+    PartyRole_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Entity'
+        - type: object
+          description: The part played by a party in a given context.
+          properties:
+            name:
+              type: string
+              description: >-
+                A word, term, or phrase by which the PartyRole is known and distinguished from other
+                PartyRoles. It's the name of the PartyRole unique entity.
+            description:
+              type: string
+              description: A description of the PartyRole.
+            role:
+              type: string
+              description: >-
+                Role played by the engagedParty in this context. As role is defined by
+                partyRoleSpecification, this role attribute can be used to precise the role defined
+                by partyRoleSpecification, or it can be used to define the role in case there is no
+                partyRoleSpecification.
+            engagedParty:
+              $ref: '#/components/schemas/PartyRef_FVO'
+            partyRoleSpecification:
+              $ref: '#/components/schemas/PartyRoleSpecificationRef_FVO'
+            characteristic:
+              type: array
+              items:
+                $ref: '#/components/schemas/Characteristic_FVO'
+              description: Describes the characteristic of a party role.
+            account:
+              type: array
+              description: Collection of accounts
+              items:
+                $ref: '#/components/schemas/AccountRef_FVO'
+            agreement:
+              type: array
+              description: Collection of agreements
+              items:
+                $ref: '#/components/schemas/AgreementRef_FVO'
+            contactMedium:
+              type: array
+              description: Collection of contact mediums
+              items:
+                $ref: '#/components/schemas/ContactMedium_FVO'
+            paymentMethod:
+              type: array
+              description: Collection of payment methods
+              items:
+                $ref: '#/components/schemas/PaymentMethodRef_FVO'
+            creditProfile:
+              type: array
+              description: Collection of credit profiles
+              items:
+                $ref: '#/components/schemas/CreditProfile'
+            relatedParty:
+              type: array
+              description: Collection of related parties
+              items:
+                $ref: '#/components/schemas/RelatedPartyOrPartyRole_FVO'
+            status:
+              type: string
+              description: Used to track the lifecycle status of the party role.
+            statusReason:
+              type: string
+              description: >-
+                A string providing an explanation on the value of the status lifecycle. For instance
+                if the status is Rejected, statusReason will provide the reason for rejection.
+            validFor:
+              $ref: '#/components/schemas/TimePeriod'
+          required:
+            - name
+            - engagedParty
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          PartyRole: '#/components/schemas/PartyRole_FVO'
+          Customer: '#/components/schemas/Customer_FVO'
+          Supplier: '#/components/schemas/Supplier_FVO'
+          BusinessPartner: '#/components/schemas/BusinessPartner_FVO'
+          Consumer: '#/components/schemas/Consumer_FVO'
+          Producer: '#/components/schemas/Producer_FVO'
+    PartyRole_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Entity'
+        - type: object
+          description: The part played by a party in a given context.
+          properties:
+            name:
+              type: string
+              description: >-
+                A word, term, or phrase by which the PartyRole is known and distinguished from other
+                PartyRoles. It's the name of the PartyRole unique entity.
+            description:
+              type: string
+              description: A description of the PartyRole.
+            role:
+              type: string
+              description: >-
+                Role played by the engagedParty in this context. As role is defined by
+                partyRoleSpecification, this role attribute can be used to precise the role defined
+                by partyRoleSpecification, or it can be used to define the role in case there is no
+                partyRoleSpecification.
+            engagedParty:
+              $ref: '#/components/schemas/PartyRef_MVO'
+            partyRoleSpecification:
+              $ref: '#/components/schemas/PartyRoleSpecificationRef_MVO'
+            characteristic:
+              type: array
+              items:
+                $ref: '#/components/schemas/Characteristic_MVO'
+              description: Describes the characteristic of a party role.
+            account:
+              type: array
+              description: Collection of accounts
+              items:
+                $ref: '#/components/schemas/AccountRef_MVO'
+            agreement:
+              type: array
+              description: Collection of agreements
+              items:
+                $ref: '#/components/schemas/AgreementRef_MVO'
+            contactMedium:
+              type: array
+              description: Collection of contact mediums
+              items:
+                $ref: '#/components/schemas/ContactMedium_MVO'
+            paymentMethod:
+              type: array
+              description: Collection of payment methods
+              items:
+                $ref: '#/components/schemas/PaymentMethodRef_MVO'
+            creditProfile:
+              type: array
+              description: Collection of credit profiles
+              items:
+                $ref: '#/components/schemas/CreditProfile_MVO'
+            relatedParty:
+              type: array
+              description: Collection of related parties
+              items:
+                $ref: '#/components/schemas/RelatedPartyOrPartyRole_MVO'
+            status:
+              type: string
+              description: Used to track the lifecycle status of the party role.
+            statusReason:
+              type: string
+              description: >-
+                A string providing an explanation on the value of the status lifecycle. For instance
+                if the status is Rejected, statusReason will provide the reason for rejection.
+            validFor:
+              $ref: '#/components/schemas/TimePeriod'
+          required:
+            - name
+            - engagedParty
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          PartyRole: '#/components/schemas/PartyRole_MVO'
+          Customer: '#/components/schemas/Customer_MVO'
+          Supplier: '#/components/schemas/Supplier_MVO'
+          BusinessPartner: '#/components/schemas/BusinessPartner_MVO'
+          Consumer: '#/components/schemas/Consumer_MVO'
+          Producer: '#/components/schemas/Producer_MVO'
+    Party_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Entity'
+        - type: object
+          description: >-
+            Generic and Abstract Party structure used to define commonalities between sub concepts
+            of Individual and Organization.
+          properties:
+            externalReference:
+              type: array
+              items:
+                $ref: '#/components/schemas/ExternalIdentifier_FVO'
+              description: >-
+                List of identifiers of the Party in an external system, for example when party
+                information is imported from a commerce system
+            partyCharacteristic:
+              type: array
+              items:
+                $ref: '#/components/schemas/Characteristic_FVO'
+              description: List of additional characteristics that a Party can take on.
+            taxExemptionCertificate:
+              type: array
+              items:
+                $ref: '#/components/schemas/TaxExemptionCertificate_FVO'
+              description: >-
+                List of tax exemptions granted to the party. For example, a war veteran might have
+                partial exemption from state tax and a full exemption from federal tax
+            creditRating:
+              type: array
+              items:
+                $ref: '#/components/schemas/PartyCreditProfile'
+              description: >-
+                List of credit profiles and scores for the party, typically received from an
+                external credit broker
+            relatedParty:
+              type: array
+              items:
+                $ref: '#/components/schemas/RelatedPartyOrPartyRole_FVO'
+              description: List of parties and/or party roles related to this party
+            contactMedium:
+              type: array
+              items:
+                $ref: '#/components/schemas/ContactMedium_FVO'
+              description: 'List of means for contacting the party, e.g. mobile phone, email address'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Party: '#/components/schemas/Party_FVO'
+          Individual: '#/components/schemas/Individual_FVO'
+          Organization: '#/components/schemas/Organization_FVO'
+    Party_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Entity'
+        - type: object
+          description: >-
+            Generic and Abstract Party structure used to define commonalities between sub concepts
+            of Individual and Organization.
+          properties:
+            externalReference:
+              type: array
+              items:
+                $ref: '#/components/schemas/ExternalIdentifier_MVO'
+              description: >-
+                List of identifiers of the Party in an external system, for example when party
+                information is imported from a commerce system
+            partyCharacteristic:
+              type: array
+              items:
+                $ref: '#/components/schemas/Characteristic_MVO'
+              description: List of additional characteristics that a Party can take on.
+            taxExemptionCertificate:
+              type: array
+              items:
+                $ref: '#/components/schemas/TaxExemptionCertificate_MVO'
+              description: >-
+                List of tax exemptions granted to the party. For example, a war veteran might have
+                partial exemption from state tax and a full exemption from federal tax
+            creditRating:
+              type: array
+              items:
+                $ref: '#/components/schemas/PartyCreditProfile_MVO'
+              description: >-
+                List of credit profiles and scores for the party, typically received from an
+                external credit broker
+            relatedParty:
+              type: array
+              items:
+                $ref: '#/components/schemas/RelatedPartyOrPartyRole_MVO'
+              description: List of parties and/or party roles related to this party
+            contactMedium:
+              type: array
+              items:
+                $ref: '#/components/schemas/ContactMedium_MVO'
+              description: 'List of means for contacting the party, e.g. mobile phone, email address'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Party: '#/components/schemas/Party_MVO'
+          Individual: '#/components/schemas/Individual_MVO'
+          Organization: '#/components/schemas/Organization_MVO'
+    PaymentMethodRef:
+      type: object
+      description: >-
+        PaymentMethod reference. A payment method defines a specific mean of payment (e.g direct
+        debit).
+      allOf:
+        - $ref: '#/components/schemas/EntityRef'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          PaymentMethodRef: '#/components/schemas/PaymentMethodRef'
+    PaymentMethodRef_FVO:
+      type: object
+      description: >-
+        PaymentMethod reference. A payment method defines a specific mean of payment (e.g direct
+        debit).
+      allOf:
+        - $ref: '#/components/schemas/EntityRef_FVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          PaymentMethodRef: '#/components/schemas/PaymentMethodRef_FVO'
+    PaymentMethodRef_MVO:
+      type: object
+      description: >-
+        PaymentMethod reference. A payment method defines a specific mean of payment (e.g direct
+        debit).
+      allOf:
+        - $ref: '#/components/schemas/EntityRef_MVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          PaymentMethodRef: '#/components/schemas/PaymentMethodRef_MVO'
+    PhoneContactMedium:
+      allOf:
+        - $ref: '#/components/schemas/ContactMedium'
+        - type: object
+          description: >-
+            Describes a phone number that could be used to contact a party (an individual or an
+            organization)
+          properties:
+            phoneNumber:
+              type: string
+              description: The phone number of the contact
+    PhoneContactMedium_FVO:
+      allOf:
+        - $ref: '#/components/schemas/ContactMedium_FVO'
+        - type: object
+          description: >-
+            Describes a phone number that could be used to contact a party (an individual or an
+            organization)
+          properties:
+            phoneNumber:
+              type: string
+              description: The phone number of the contact
+    PhoneContactMedium_MVO:
+      allOf:
+        - $ref: '#/components/schemas/ContactMedium_MVO'
+        - type: object
+          description: >-
+            Describes a phone number that could be used to contact a party (an individual or an
+            organization)
+          properties:
+            phoneNumber:
+              type: string
+              description: The phone number of the contact
+    Producer:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/PartyRole'
+    Producer_FVO:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/PartyRole_FVO'
+    Producer_MVO:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/PartyRole_MVO'
+    Quantity:
+      type: object
+      description: An amount in a given unit
+      properties:
+        amount:
+          type: number
+          format: float
+          default: 1
+          description: Numeric value in a given unit
+        units:
+          type: string
+          description: Unit
+    RelatedPartyOrPartyRole:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          description: >-
+            RelatedParty reference. A related party defines party or party role or its reference,
+            linked to a specific entity
+          properties:
+            role:
+              description: >-
+                Role played by the related party or party role in the context of the specific entity
+                it is linked to. Such as 'initiator', 'customer',  'salesAgent', 'user'
+              type: string
+            partyOrPartyRole:
+              $ref: '#/components/schemas/PartyOrPartyRole'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          RelatedPartyOrPartyRole: '#/components/schemas/RelatedPartyOrPartyRole'
+    RelatedPartyOrPartyRole_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          description: >-
+            RelatedParty reference. A related party defines party or party role or its reference,
+            linked to a specific entity
+          properties:
+            role:
+              description: >-
+                Role played by the related party or party role in the context of the specific entity
+                it is linked to. Such as 'initiator', 'customer',  'salesAgent', 'user'
+              type: string
+            partyOrPartyRole:
+              $ref: '#/components/schemas/PartyOrPartyRole_FVO'
+          required:
+            - role
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          RelatedPartyOrPartyRole: '#/components/schemas/RelatedPartyOrPartyRole_FVO'
+    RelatedPartyOrPartyRole_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_MVO'
+        - type: object
+          description: >-
+            RelatedParty reference. A related party defines party or party role or its reference,
+            linked to a specific entity
+          properties:
+            role:
+              description: >-
+                Role played by the related party or party role in the context of the specific entity
+                it is linked to. Such as 'initiator', 'customer',  'salesAgent', 'user'
+              type: string
+            partyOrPartyRole:
+              $ref: '#/components/schemas/PartyOrPartyRole_MVO'
+          required:
+            - role
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          RelatedPartyOrPartyRole: '#/components/schemas/RelatedPartyOrPartyRole_MVO'
+    RelatedPartyRefOrPartyRoleRef:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          description: >-
+            RelatedParty reference. A related party defines party or party role or its reference,
+            linked to a specific entity
+          properties:
+            role:
+              description: >-
+                Role played by the related party or party role in the context of the specific entity
+                it is linked to. Such as 'initiator', 'customer',  'salesAgent', 'user'
+              type: string
+            partyOrPartyRole:
+              $ref: '#/components/schemas/PartyRefOrPartyRoleRef'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          RelatedPartyRefOrPartyRoleRef: '#/components/schemas/RelatedPartyRefOrPartyRoleRef'
+    Skill:
+      type: object
+      description: >-
+        Skills evaluated for an individual with a level and possibly with a limited validity when an
+        obsolescence is defined (Ex: the first-aid certificate first level is limited to one year
+        and an update training is required each year to keep the level).
+      properties:
+        skillCode:
+          type: string
+          description: Code of the skill
+        skillName:
+          type: string
+          description: 'Name of the skill, such as Java language'
+        evaluatedLevel:
+          type: string
+          description: Level of expertise in a skill evaluated for an individual
+        comment:
+          type: string
+          description: A free text comment linked to the evaluation done
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+    SocialContactMedium:
+      allOf:
+        - $ref: '#/components/schemas/ContactMedium'
+        - type: object
+          description: >-
+            Describes a social media identifier that could be used to contact a party (an individual
+            or an organization)
+          properties:
+            socialNetworkId:
+              type: string
+              description: Identifier as a member of a social network
+    SocialContactMedium_FVO:
+      allOf:
+        - $ref: '#/components/schemas/ContactMedium_FVO'
+        - type: object
+          description: >-
+            Describes a social media identifier that could be used to contact a party (an individual
+            or an organization)
+          properties:
+            socialNetworkId:
+              type: string
+              description: Identifier as a member of a social network
+    SocialContactMedium_MVO:
+      allOf:
+        - $ref: '#/components/schemas/ContactMedium_MVO'
+        - type: object
+          description: >-
+            Describes a social media identifier that could be used to contact a party (an individual
+            or an organization)
+          properties:
+            socialNetworkId:
+              type: string
+              description: Identifier as a member of a social network
+    StringArrayCharacteristic:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic'
+        - type: object
+          description: A characteristic which value is an array of String(s).
+          properties:
+            value:
+              type: array
+              description: Collection of string characteristics
+              items:
+                type: string
+                description: Characteristic value
+    StringArrayCharacteristic_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_FVO'
+        - type: object
+          description: A characteristic which value is an array of String(s).
+          properties:
+            value:
+              type: array
+              description: Collection of string characteristics
+              items:
+                type: string
+                description: Characteristic value
+          required:
+            - value
+    StringArrayCharacteristic_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_MVO'
+        - type: object
+          description: A characteristic which value is an array of String(s).
+          properties:
+            value:
+              type: array
+              description: Collection of string characteristics
+              items:
+                type: string
+                description: Characteristic value
+    StringCharacteristic:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic'
+        - type: object
+          description: A characteristic which value is a String.
+          properties:
+            value:
+              type: string
+              description: Value of the characteristic
+    StringCharacteristic_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_FVO'
+        - type: object
+          description: A characteristic which value is a String.
+          properties:
+            value:
+              type: string
+              description: Value of the characteristic
+          required:
+            - value
+    StringCharacteristic_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Characteristic_MVO'
+        - type: object
+          description: A characteristic which value is a String.
+          properties:
+            value:
+              type: string
+              description: Value of the characteristic
+    Supplier:
+      type: object
+      description: 'When business partner is the Supplier '
+      allOf:
+        - $ref: '#/components/schemas/PartyRole'
+    Supplier_FVO:
+      type: object
+      description: 'When business partner is the Supplier '
+      allOf:
+        - $ref: '#/components/schemas/PartyRole_FVO'
+    Supplier_MVO:
+      type: object
+      description: 'When business partner is the Supplier '
+      allOf:
+        - $ref: '#/components/schemas/PartyRole_MVO'
+    TaxDefinition:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          description: >-
+            Reference of a tax definition. A tax is levied by an authorized tax jurisdiction. For
+            example, there are many different types of tax (Federal Tax levied by the US Government,
+            State Tax levied by the State of California, City Tax levied by the City of Los Angeles,
+            etc.).
+          properties:
+            id:
+              type: string
+              description: Unique identifier of the tax.
+            name:
+              type: string
+              description: Tax name.
+            validFor:
+              $ref: '#/components/schemas/TimePeriod'
+            jurisdictionName:
+              type: string
+              description: Name of the jurisdiction that levies the tax
+              example: USA
+            jurisdictionLevel:
+              type: string
+              description: Level of the jurisdiction that levies the tax
+              example: Country
+            taxType:
+              type: string
+              description: Type of the tax.
+              example: VAT
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          TaxDefinition: '#/components/schemas/TaxDefinition'
+    TaxDefinition_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_MVO'
+        - type: object
+          description: >-
+            Reference of a tax definition. A tax is levied by an authorized tax jurisdiction. For
+            example, there are many different types of tax (Federal Tax levied by the US Government,
+            State Tax levied by the State of California, City Tax levied by the City of Los Angeles,
+            etc.).
+          properties:
+            id:
+              type: string
+              description: Unique identifier of the tax.
+            name:
+              type: string
+              description: Tax name.
+            validFor:
+              $ref: '#/components/schemas/TimePeriod'
+            jurisdictionName:
+              type: string
+              description: Name of the jurisdiction that levies the tax
+              example: USA
+            jurisdictionLevel:
+              type: string
+              description: Level of the jurisdiction that levies the tax
+              example: Country
+            taxType:
+              type: string
+              description: Type of the tax.
+              example: VAT
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          TaxDefinition: '#/components/schemas/TaxDefinition_MVO'
+    TaxExemptionCertificate:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          description: >-
+            A tax exemption certificate represents a tax exemption granted to a party (individual or
+            organization) by a tax jurisdiction which may be a city, state, country,... An exemption
+            has a certificate identifier (received from the jurisdiction that levied the tax) and a
+            validity period. An exemption is per tax types and determines for each type of tax what
+            portion of the tax is exempted (partial by percentage or complete) via the tax
+            definition.
+          properties:
+            id:
+              type: string
+              description: Identifier of the tax exemption within list of the exemptions
+            taxDefinition:
+              type: array
+              items:
+                $ref: '#/components/schemas/TaxDefinition'
+              description: >-
+                A list of taxes that are covered by the exemption, e.g. City Tax, State Tax. The
+                definition would include the exemption (e.g. for a rate exemption 0% would be a full
+                exemption, 5% could be a partial exemption if the actual rate was 10%).
+            validFor:
+              $ref: '#/components/schemas/TimePeriod'
+            certificateNumber:
+              type: string
+              description: >-
+                Identifier of a document that shows proof of exemption from taxes for the taxing
+                jurisdiction
+            issuingJurisdiction:
+              type: string
+              description: Name of the jurisdiction that issued the exemption
+              example: USA
+            reason:
+              type: string
+              description: Reason for the tax exemption
+            attachment:
+              $ref: '#/components/schemas/AttachmentRefOrValue'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          TaxExemptionCertificate: '#/components/schemas/TaxExemptionCertificate'
+    TaxExemptionCertificate_FVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          description: >-
+            A tax exemption certificate represents a tax exemption granted to a party (individual or
+            organization) by a tax jurisdiction which may be a city, state, country,... An exemption
+            has a certificate identifier (received from the jurisdiction that levied the tax) and a
+            validity period. An exemption is per tax types and determines for each type of tax what
+            portion of the tax is exempted (partial by percentage or complete) via the tax
+            definition.
+          properties:
+            taxDefinition:
+              type: array
+              items:
+                $ref: '#/components/schemas/TaxDefinition'
+              description: >-
+                A list of taxes that are covered by the exemption, e.g. City Tax, State Tax. The
+                definition would include the exemption (e.g. for a rate exemption 0% would be a full
+                exemption, 5% could be a partial exemption if the actual rate was 10%).
+            validFor:
+              $ref: '#/components/schemas/TimePeriod'
+            certificateNumber:
+              type: string
+              description: >-
+                Identifier of a document that shows proof of exemption from taxes for the taxing
+                jurisdiction
+            issuingJurisdiction:
+              type: string
+              description: Name of the jurisdiction that issued the exemption
+              example: USA
+            reason:
+              type: string
+              description: Reason for the tax exemption
+            attachment:
+              $ref: '#/components/schemas/AttachmentRefOrValue_FVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          TaxExemptionCertificate: '#/components/schemas/TaxExemptionCertificate_FVO'
+    TaxExemptionCertificate_MVO:
+      allOf:
+        - $ref: '#/components/schemas/Extensible_MVO'
+        - type: object
+          description: >-
+            A tax exemption certificate represents a tax exemption granted to a party (individual or
+            organization) by a tax jurisdiction which may be a city, state, country,... An exemption
+            has a certificate identifier (received from the jurisdiction that levied the tax) and a
+            validity period. An exemption is per tax types and determines for each type of tax what
+            portion of the tax is exempted (partial by percentage or complete) via the tax
+            definition.
+          properties:
+            taxDefinition:
+              type: array
+              items:
+                $ref: '#/components/schemas/TaxDefinition_MVO'
+              description: >-
+                A list of taxes that are covered by the exemption, e.g. City Tax, State Tax. The
+                definition would include the exemption (e.g. for a rate exemption 0% would be a full
+                exemption, 5% could be a partial exemption if the actual rate was 10%).
+            validFor:
+              $ref: '#/components/schemas/TimePeriod'
+            certificateNumber:
+              type: string
+              description: >-
+                Identifier of a document that shows proof of exemption from taxes for the taxing
+                jurisdiction
+            issuingJurisdiction:
+              type: string
+              description: Name of the jurisdiction that issued the exemption
+              example: USA
+            reason:
+              type: string
+              description: Reason for the tax exemption
+            attachment:
+              $ref: '#/components/schemas/AttachmentRefOrValue_MVO'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          TaxExemptionCertificate: '#/components/schemas/TaxExemptionCertificate_MVO'
+    TimePeriod:
+      type: object
+      description: 'A period of time, either as a deadline (endDateTime only) a startDateTime only, or both'
+      properties:
+        startDateTime:
+          description: 'Start of the time period, using IETC-RFC-3339 format'
+          type: string
+          format: date-time
+          example: '1985-04-12T23:20:50.52Z'
+        endDateTime:
+          description: 'End of the time period, using IETC-RFC-3339 format'
+          type: string
+          format: date-time
+          example: '1985-04-12T23:20:50.52Z'
+    Error:
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          Error: '#/components/schemas/Error'
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - type: object
+          required:
+            - code
+            - reason
+          properties:
+            code:
+              type: string
+              description: 'Application relevant detail, defined in the API or a common list.'
+            reason:
+              type: string
+              description: Explanation of the reason for the error which can be shown to a client user.
+            message:
+              type: string
+              description: >-
+                More details and corrective actions related to the error which can be shown to a
+                client user.
+            status:
+              type: string
+              description: HTTP Error code extension
+            referenceError:
+              type: string
+              description: URI of documentation describing the error.
+      description: 'Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)'
+    Hub_FVO:
+      type: object
+      description: >-
+        Sets the communication endpoint address the service instance must use to deliver
+        notification information
+      required:
+        - callback
+      allOf:
+        - $ref: '#/components/schemas/Extensible'
+        - properties:
+            callback:
+              type: string
+              description: The callback being registered.
+            query:
+              type: string
+              description: additional data to be passed
+    Hub:
+      type: object
+      description: >-
+        Sets the communication endpoint address the service instance must use to deliver
+        notification information
+      allOf:
+        - $ref: '#/components/schemas/Entity'
+        - properties:
+            id:
+              type: string
+              description: Id of the listener
+            callback:
+              type: string
+              description: The callback being registered.
+            query:
+              type: string
+              description: additional data to be passed
+          required:
+            - callback
+    JsonPatch:
+      type: object
+      description: A JSONPatch document as defined by RFC 6902
+      required:
+        - op
+        - path
+      properties:
+        op:
+          type: string
+          description: The operation to be performed
+          enum:
+            - add
+            - remove
+            - replace
+            - move
+            - copy
+            - test
+        path:
+          type: string
+          description: A JSON-Pointer
+        value:
+          description: The value to be used within the operations.
+        from:
+          type: string
+          description: A string containing a JSON Pointer value.
+    JsonPatchOperations:
+      description: JSONPatch Operations document as defined by RFC 6902
+      type: array
+      items:
+        $ref: '#/components/schemas/JsonPatch'
+  parameters:
+    Id:
+      name: id
+      required: true
+      schema:
+        type: string
+      in: path
+      description: Identifier of the Resource
+    Fields:
+      name: fields
+      in: query
+      description: Comma-separated properties to be provided in response
+      schema:
+        type: string
+    Offset:
+      name: offset
+      in: query
+      description: Requested index for start of resources to be provided in response
+      schema:
+        type: integer
+    Limit:
+      name: limit
+      in: query
+      description: Requested number of resources to be provided in response
+      schema:
+        type: integer
+  requestBodies:
+    Customer_FVO:
+      description: The Customer to be created
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Customer_FVO'
+          examples:
+            Customer_Create_example:
+              $ref: '#/components/examples/Customer_Create_example_request'
+      required: true
+    Customer_MVO:
+      description: The Customer to be patched
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Customer_MVO'
+          examples:
+            Customer_Update_example_application-json_:
+              $ref: '#/components/examples/Customer_Update_example_application-json__request'
+        application/merge-patch+json:
+          schema:
+            $ref: '#/components/schemas/Customer_MVO'
+          examples:
+            Customer_Update_example_Merge_:
+              $ref: '#/components/examples/Customer_Update_example_Merge__request'
+        application/json-patch+json:
+          schema:
+            $ref: '#/components/schemas/JsonPatchOperations'
+          examples:
+            Customer_Update_example_JSON-PATCH_:
+              $ref: '#/components/examples/Customer_Update_example_JSON-PATCH__request'
+        application/json-patch-query+json:
+          schema:
+            $ref: '#/components/schemas/JsonPatchOperations'
+          examples:
+            Customer_Update_example_JSON-PATCH-QUERY_:
+              $ref: '#/components/examples/Customer_Update_example_JSON-PATCH-QUERY__request'
+      required: true
+    CustomerCreateEvent:
+      description: Customer create Event payload
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CustomerCreateEvent'
+          examples:
+            Create_Cusomter_Notification_Event:
+              $ref: '#/components/examples/Create_Cusomter_Notification_Event_request'
+      required: true
+    CustomerDeleteEvent:
+      description: Customer delete Event payload
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CustomerDeleteEvent'
+          examples:
+            Delete_Cusomter_Notification_Event:
+              $ref: '#/components/examples/Delete_Cusomter_Notification_Event_request'
+      required: true
+    CustomerAttributeValueChangeEvent:
+      description: Customer attributeValueChange Event payload
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CustomerAttributeValueChangeEvent'
+          examples:
+            Customer_Attribute_Value_Change_Notification_Event:
+              $ref: '#/components/examples/Customer_Attribute_Value_Change_Notification_Event_request'
+      required: true
+    CustomerStateChangeEvent:
+      description: Customer stateChange Event payload
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CustomerStateChangeEvent'
+          examples:
+            Customer_State_Change_Notification_Event:
+              $ref: '#/components/examples/Customer_State_Change_Notification_Event_request'
+      required: true
+    Hub_FVO:
+      description: Data containing the callback endpoint to deliver the information
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Hub_FVO'
+          examples:
+            Basic Hub Example Request:
+              value:
+                '@type': Hub
+                callback: 'https://host/tmf-api/specificAPIName/v5/listener/specificEventListener'
+                query: data
+      required: true
+  responses:
+    '200':
+      description: OK
+    '202':
+      description: Accepted
+    '204':
+      description: Deleted
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            basic:
+              summary: Bad Request Error
+              value:
+                '@type': Error
+                code: ERR400
+                reason: Bad Request
+                message: >-
+                  The server could not understand the request due to invalid syntax. Please correct
+                  the syntax and try again.
+                referenceError: 'https://host/errors'
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            basic:
+              summary: Unauthorized Error
+              value:
+                '@type': Error
+                code: ERR401
+                reason: Unauthorized
+                message: >-
+                  You are not authorized to access the requested resource. Please provide the
+                  correct credentials.
+                referenceError: 'https://host/errors'
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            basic:
+              summary: Forbidden Error
+              value:
+                '@type': Error
+                code: ERR403
+                reason: Forbidden
+                message: >-
+                  You don't have the permission to access the requested resource. It is either
+                  read-protected or not readable by the server.
+                referenceError: 'https://host/errors'
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            basic:
+              summary: Not Found Error
+              value:
+                '@type': Error
+                code: ERR404
+                reason: Not Found
+                message: The requested URL was not found on the server.
+                referenceError: 'https://host/errors'
+    '405':
+      description: Method Not allowed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            basic:
+              summary: Method Not allowed Error
+              value:
+                '@type': Error
+                code: ERR405
+                reason: Method Not allowed
+                message: The method is not allowed for the requested URL.
+                referenceError: 'https://host/errors'
+    '409':
+      description: Conflict
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            basic:
+              summary: Conflict Error
+              value:
+                '@type': Error
+                code: ERR409
+                reason: Conflict
+                message: >-
+                  The request could not be completed due to a conflict with the current state of the
+                  target resource.
+                referenceError: 'https://host/errors'
+    '500':
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            basic:
+              summary: Internal Server Error example
+              value:
+                '@type': Error
+                code: ERR500
+                reason: Internal Server Error
+                message: The server encountered an internal error. Please contact the system administrator.
+                referenceError: 'https://host/errors'
+    '501':
+      description: Not Implemented
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            basic:
+              summary: Not Implemented Error
+              value:
+                '@type': Error
+                code: ERR501
+                reason: The requested operation is not implemented
+                message: >-
+                  The requested operation is not implemented. Please contact the system
+                  administrator.
+                referenceError: 'https://host/errors'
+    '503':
+      description: Service Unavailable
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            basic:
+              summary: Service Unavailable Error
+              value:
+                '@type': Error
+                code: ERR503
+                reason: Service Unavailable
+                message: The service is currently unavailable. Please try again later.
+                referenceError: 'https://host/errors'
+    200CustomerArray:
+      description: Success
+      headers:
+        X-Total-Count:
+          $ref: '#/components/headers/X-Total-Count'
+        X-Result-Count:
+          $ref: '#/components/headers/X-Result-Count'
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Customer'
+          examples:
+            Customer_list_example:
+              $ref: '#/components/examples/Customer_list_example_response'
+    200Customer_Get:
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Customer'
+          examples:
+            Customer_retrieve_example:
+              $ref: '#/components/examples/Customer_retrieve_example_response'
+    200Customer_Patch:
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Customer'
+          examples:
+            Customer_Update_example_application-json_:
+              $ref: '#/components/examples/Customer_Update_example_application-json__response'
+    201Customer:
+      description: OK/Created
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Customer'
+          examples:
+            Customer_Create_example:
+              $ref: '#/components/examples/Customer_Create_example_response'
+    Error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            basic:
+              summary: Error example
+              value:
+                '@type': Error
+                code: ERR001
+                reason: Missing information
+                message: Please provide the additional example information
+                referenceError: 'https://host/errors'
+    Hub:
+      description: Notified
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Hub'
+          examples:
+            basic:
+              summary: Hub example
+              value:
+                '@type': Hub
+                callback: 'https://host/tmf-api/specificAPIName/v5/listener/specificEventListener'
+  headers:
+    X-Total-Count:
+      description: Total number of items matching criteria
+      schema:
+        type: integer
+    X-Result-Count:
+      description: Actual number of items returned in the response body
+      schema:
+        type: integer
+  securitySchemes: {}
+  examples:
+    Customer_list_example_response:
+      value:
+        - '@type': Customer
+          href: 'https://host:port/tmf-api/customerManagement/v5/customer/1140'
+          id: '1140'
+          name: Moon Football Club
+          status: Created
+          engagedParty:
+            '@type': PartyRef
+            href: 'https://host:port/tmf-api/partyManagement/v5/organization/500'
+            id: '500'
+            name: Happy Travellers
+            '@referredType': Organization
+          contactMedium:
+            - '@type': PhoneContactMedium
+              preferred: true
+              contactType: homePhone
+              validFor:
+                startDateTime: '2018-06-12T00:00:00Z'
+                endDateTime: '2019-01-01T00:00:00Z'
+              phoneNumber: 01 09 75 83 51
+            - '@type': GeographicAddressContactMedium
+              preferred: false
+              contactType: homeAddress
+              validFor:
+                startDateTime: '2018-06-12T00:00:00Z'
+                endDateTime: '2019-01-01T00:00:00Z'
+              city: Paris
+              country: France
+              postCode: '75014'
+              street1: 15 Rue des Canards
+          relatedParty:
+            - '@type': RelatedPartyRefOrPartyRoleRef
+              role: bill receiver
+              partyOrPartyRole:
+                '@type': PartyRef
+                href: 'https://host:port/tmf-api/partyManagement/v5/organization/2777'
+                id: '2777'
+                name: John Doe (Accounting) Ltd
+                '@referredType': Organization
+      description: Here is an example of a response for retrieving multiple Customers.
+    Customer_retrieve_example_response:
+      value:
+        '@type': Customer
+        href: 'https://host:port/tmf-api/customerManagement/v5/customer/1140'
+        id: '1140'
+        name: Moon Football Club
+        status: Created
+        engagedParty:
+          '@type': PartyRef
+          href: 'https://host:port/tmf-api/partyManagement/v5/organization/500'
+          id: '500'
+          name: Happy Travellers
+          '@referredType': Organization
+        contactMedium:
+          - '@type': PhoneContactMedium
+            preferred: true
+            contactType: homePhone
+            validFor:
+              startDateTime: '2018-06-12T00:00:00Z'
+              endDateTime: '2019-01-01T00:00:00Z'
+            phoneNumber: 01 09 75 83 51
+          - '@type': GeographicAddressContactMedium
+            preferred: false
+            contactType: homeAddress
+            validFor:
+              startDateTime: '2018-06-12T00:00:00Z'
+              endDateTime: '2019-01-01T00:00:00Z'
+            city: Paris
+            country: France
+            postCode: '75014'
+            street1: 15 Rue des Canards
+        relatedParty:
+          - '@type': RelatedPartyRefOrPartyRoleRef
+            role: bill receiver
+            partyOrPartyRole:
+              '@type': PartyRef
+              href: 'https://host:port/tmf-api/partyManagement/v5/organization/2777'
+              id: '2777'
+              name: John Doe (Accounting) Ltd
+              '@referredType': Organization
+      description: Here is an example of a response for retrieving a specific customer.
+    Customer_Create_example_request:
+      value:
+        '@type': Customer
+        name: Moon Football Club
+        engagedParty:
+          '@type': PartyRef
+          href: 'https://host:port/tmf-api/partyManagement/v5/organization/500'
+          id: '500'
+          name: Happy Travellers
+          '@referredType': Organization
+        contactMedium:
+          - '@type': PhoneContactMedium
+            preferred: true
+            contactType: homePhone
+            validFor:
+              startDateTime: '2018-06-12T00:00:00Z'
+              endDateTime: '2019-01-01T00:00:00Z'
+            phoneNumber: 01 09 75 83 51
+          - '@type': GeographicAddressContactMedium
+            preferred: false
+            contactType: homeAddress
+            validFor:
+              startDateTime: '2018-06-12T00:00:00Z'
+              endDateTime: '2019-01-01T00:00:00Z'
+            city: Paris
+            country: France
+            postCode: '75014'
+            street1: 15 Rue des Canards
+        relatedParty:
+          - '@type': RelatedPartyRefOrPartyRoleRef
+            role: bill receiver
+            partyOrPartyRole:
+              '@type': PartyRef
+              href: 'https://host:port/tmf-api/partyManagement/v5/organization/2777'
+              id: '2777'
+              name: John Doe (Accounting) Ltd
+              '@referredType': Organization
+      description: Here is an example of a request for creating a customer.
+    Customer_Create_example_response:
+      value:
+        '@type': Customer
+        href: 'https://host:port/tmf-api/customerManagement/v5/customer/1140'
+        id: '1140'
+        name: Moon Football Club
+        status: Created
+        engagedParty:
+          '@type': PartyRef
+          href: 'https://host:port/tmf-api/partyManagement/v5/organization/500'
+          id: '500'
+          name: Happy Travellers
+          '@referredType': Organization
+        contactMedium:
+          - '@type': PhoneContactMedium
+            preferred: true
+            contactType: homePhone
+            validFor:
+              startDateTime: '2018-06-12T00:00:00Z'
+              endDateTime: '2019-01-01T00:00:00Z'
+            phoneNumber: 01 09 75 83 51
+          - '@type': GeographicAddressContactMedium
+            preferred: false
+            contactType: homeAddress
+            validFor:
+              startDateTime: '2018-06-12T00:00:00Z'
+              endDateTime: '2019-01-01T00:00:00Z'
+            city: Paris
+            country: France
+            postCode: '75014'
+            street1: 15 Rue des Canards
+        relatedParty:
+          - '@type': RelatedPartyRefOrPartyRoleRef
+            role: bill receiver
+            partyOrPartyRole:
+              '@type': PartyRef
+              href: 'https://host:port/tmf-api/partyManagement/v5/organization/2777'
+              id: '2777'
+              name: John Doe (Accounting) Ltd
+              '@referredType': Organization
+      description: Here is an example of a response for creating a customer.
+    Customer_Update_example_application-json__request:
+      value:
+        '@type': Customer
+        name: Sun Football Club
+        engagedParty:
+          '@type': PartyRef
+          href: 'https://host:port/tmf-api/partyManagement/v5/organization/237'
+          id: '237'
+          name: Another Long Distance Travellers
+          '@referredType': Organization
+      description: Here is an example of a request for creating a customer.
+    Customer_Update_example_application-json__response:
+      value:
+        '@type': Customer
+        href: 'https://host:port/tmf-api/customerManagement/v5/customer/1140'
+        id: '1140'
+        name: Sun Football Club
+        status: Created
+        engagedParty:
+          '@type': PartyRef
+          href: 'https://host:port/tmf-api/partyManagement/v5/organization/237'
+          id: '237'
+          name: Another Long Distance Travellers
+          '@referredType': Organization
+        contactMedium:
+          - '@type': PhoneContactMedium
+            preferred: true
+            contactType: homePhone
+            validFor:
+              startDateTime: '2018-06-12T00:00:00Z'
+              endDateTime: '2019-01-01T00:00:00Z'
+            phoneNumber: 01 09 75 83 51
+          - '@type': GeographicAddressContactMedium
+            preferred: false
+            contactType: homeAddress
+            validFor:
+              startDateTime: '2018-06-12T00:00:00Z'
+              endDateTime: '2019-01-01T00:00:00Z'
+            city: Paris
+            country: France
+            postCode: '75014'
+            street1: 15 Rue des Canards
+        relatedParty:
+          - '@type': RelatedPartyRefOrPartyRoleRef
+            role: bill receiver
+            partyOrPartyRole:
+              '@type': PartyRef
+              href: 'https://host:port/tmf-api/partyManagement/v5/organization/2777'
+              id: '2777'
+              name: John Doe (Accounting) Ltd
+              '@referredType': Organization
+      description: Here is an example of a response for creating a customer.
+    Customer_Update_example_Merge__request:
+      value:
+        '@type': Customer
+        name: Sun Football Club
+        engagedParty:
+          '@type': PartyRef
+          href: 'https://host:port/tmf-api/partyManagement/v5/organization/237'
+          id: '237'
+          name: Another Long Distance Travellers
+          '@referredType': Organization
+      description: Here is an example of a request for creating a customer.
+    Customer_Update_example_Merge__response:
+      value:
+        '@type': Customer
+        href: 'https://host:port/tmf-api/customerManagement/v5/customer/1140'
+        id: '1140'
+        name: Sun Football Club
+        status: Created
+        engagedParty:
+          '@type': PartyRef
+          href: 'https://host:port/tmf-api/partyManagement/v5/organization/237'
+          id: '237'
+          name: Another Long Distance Travellers
+          '@referredType': Organization
+        contactMedium:
+          - '@type': PhoneContactMedium
+            preferred: true
+            contactType: homePhone
+            validFor:
+              startDateTime: '2018-06-12T00:00:00Z'
+              endDateTime: '2019-01-01T00:00:00Z'
+            phoneNumber: 01 09 75 83 51
+          - '@type': GeographicAddressContactMedium
+            preferred: false
+            contactType: homeAddress
+            validFor:
+              startDateTime: '2018-06-12T00:00:00Z'
+              endDateTime: '2019-01-01T00:00:00Z'
+            city: Paris
+            country: France
+            postCode: '75014'
+            street1: 15 Rue des Canards
+        relatedParty:
+          - '@type': RelatedPartyRefOrPartyRoleRef
+            role: bill receiver
+            partyOrPartyRole:
+              '@type': PartyRef
+              href: 'https://host:port/tmf-api/partyManagement/v5/organization/2777'
+              id: '2777'
+              name: John Doe (Accounting) Ltd
+              '@referredType': Organization
+      description: Here is an example of a response for creating a customer.
+    Customer_Update_example_JSON-PATCH__request:
+      value:
+        - op: replace
+          path: /name
+          value: Sun Football Club
+        - op: replace
+          path: /engagedParty
+          value:
+            '@type': PartyRef
+            href: 'https://host:port/tmf-api/partyManagement/v5/organization/237'
+            id: '237'
+            name: Another Long Distance Travellers
+            '@referredType': Organization
+      description: Here is an example of a request for creating a customer.
+    Customer_Update_example_JSON-PATCH__response:
+      value:
+        '@type': Customer
+        href: 'https://host:port/tmf-api/customerManagement/v5/customer/1140'
+        id: '1140'
+        name: Sun Football Club
+        status: Created
+        engagedParty:
+          '@type': PartyRef
+          href: 'https://host:port/tmf-api/partyManagement/v5/organization/237'
+          id: '237'
+          name: Another Long Distance Travellers
+          '@referredType': Organization
+        contactMedium:
+          - '@type': PhoneContactMedium
+            preferred: true
+            contactType: homePhone
+            validFor:
+              startDateTime: '2018-06-12T00:00:00Z'
+              endDateTime: '2019-01-01T00:00:00Z'
+            phoneNumber: 01 09 75 83 51
+          - '@type': GeographicAddressContactMedium
+            preferred: false
+            contactType: homeAddress
+            validFor:
+              startDateTime: '2018-06-12T00:00:00Z'
+              endDateTime: '2019-01-01T00:00:00Z'
+            city: Paris
+            country: France
+            postCode: '75014'
+            street1: 15 Rue des Canards
+        relatedParty:
+          - '@type': RelatedPartyRefOrPartyRoleRef
+            role: bill receiver
+            partyOrPartyRole:
+              '@type': PartyRef
+              href: 'https://host:port/tmf-api/partyManagement/v5/organization/2777'
+              id: '2777'
+              name: John Doe (Accounting) Ltd
+              '@referredType': Organization
+      description: Here is an example of a response for creating a customer.
+    Customer_Update_example_JSON-PATCH-QUERY__request:
+      value:
+        - op: replace
+          path: /contactMedium/preferred?city=Paris
+          value: true
+      description: Here is an example of a request for creating a customer.
+    Customer_Update_example_JSON-PATCH-QUERY__response:
+      value:
+        '@type': Customer
+        href: 'https://host:port/tmf-api/customerManagement/v5/customer/1140'
+        id: '1140'
+        name: Moon Football Club
+        status: Created
+        engagedParty:
+          '@type': PartyRef
+          href: 'https://host:port/tmf-api/partyManagement/v5/organization/236'
+          id: '236'
+          name: Long Distance Travellers
+          '@referredType': Organization
+        contactMedium:
+          - '@type': PhoneContactMedium
+            preferred: true
+            contactType: homePhone
+            validFor:
+              startDateTime: '2018-06-12T00:00:00Z'
+              endDateTime: '2019-01-01T00:00:00Z'
+            phoneNumber: 01 09 75 83 51
+          - '@type': GeographicAddressContactMedium
+            preferred: true
+            contactType: homeAddress
+            validFor:
+              startDateTime: '2018-06-12T00:00:00Z'
+              endDateTime: '2019-01-01T00:00:00Z'
+            city: Paris
+            country: France
+            postCode: '75014'
+            street1: 15 Rue des Canards
+        relatedParty:
+          - '@type': RelatedPartyRefOrPartyRoleRef
+            role: bill receiver
+            partyOrPartyRole:
+              '@type': PartyRef
+              href: 'https://host:port/tmf-api/partyManagement/v5/organization/2777'
+              id: '2777'
+              name: John Doe (Accounting) Ltd
+              '@referredType': Organization
+      description: Here is an example of a response for creating a customer.
+    Create_Cusomter_Notification_Event_request:
+      value:
+        '@type': CustomerCreateEvent
+        eventId: 3cc17ff9-d674-4b0a-ab50-06841b1fd574
+        eventTime: '2023-06-14T12:15:59.96747+02:00'
+        eventType: CustomerCreateEvent
+        event:
+          customer:
+            '@type': Customer
+            href: 'https://host:port/tmf-api/customerManagement/v5/customer/1140'
+            id: '1140'
+            name: Moon Football Club
+            status: Created
+            engagedParty:
+              '@type': PartyRef
+              href: 'https://host:port/tmf-api/partyManagement/v5/organization/500'
+              id: '500'
+              name: Happy Travellers
+              '@referredType': Organization
+            contactMedium:
+              - '@type': PhoneContactMedium
+                preferred: true
+                contactType: homePhone
+                validFor:
+                  startDateTime: '2018-06-12T00:00:00Z'
+                  endDateTime: '2019-01-01T00:00:00Z'
+                phoneNumber: 01 09 75 83 51
+              - '@type': GeographicAddressContactMedium
+                preferred: false
+                contactType: homeAddress
+                validFor:
+                  startDateTime: '2018-06-12T00:00:00Z'
+                  endDateTime: '2019-01-01T00:00:00Z'
+                city: Paris
+                country: France
+                postCode: '75014'
+                street1: 15 Rue des Canards
+            relatedParty:
+              - '@type': RelatedPartyRefOrPartyRoleRef
+                role: bill receiver
+                partyOrPartyRole:
+                  '@type': PartyRef
+                  href: 'https://host:port/tmf-api/partyManagement/v5/organization/2777'
+                  id: '2777'
+                  name: John Doe (Accounting) Ltd
+                  '@referredType': Organization
+      description: Message example for CatalogCreateEvent Notification
+    Delete_Cusomter_Notification_Event_request:
+      value:
+        '@type': CustomerDeleteEvent
+        eventId: 63749ead-f133-4c64-b2ed-3a93a2a56999
+        eventTime: '2023-06-14T12:15:59.969117+02:00'
+        eventType: CustomerDeleteEvent
+        event:
+          customer:
+            '@type': Customer
+            id: '1140'
+            href: 'https://host:port/tmf-api/customerManagement/v5/customer/1140'
+      description: Message example for CustomerDeleteEvent Notification
+    Customer_Attribute_Value_Change_Notification_Event_request:
+      value:
+        '@type': CustomerAttributeValueChangeEvent
+        eventId: e3dac91d-a035-465f-afc5-d3b603b53ad2
+        eventTime: '2018-06-12T00:00:00Z'
+        eventType: CustomerAttributeValueChangeEvent
+        event:
+          customer:
+            '@type': Customer
+            href: 'https://host:port/tmf-api/customerManagement/v5/customer/1140'
+            id: '1140'
+            engagedParty:
+              '@type': PartyRef
+              href: 'https://host:port/tmf-api/partyManagement/v5/organization/236'
+              id: '236'
+              name: Long Distance Travellers
+              '@referredType': Organization
+      description: Message example for CustomerAttributeValueChangeEvent Notification
+    Customer_State_Change_Notification_Event_request:
+      value:
+        '@type': CustomerStateChangeEvent
+        priority: high
+        eventId: b14f7023-e982-4c02-a0c1-9790ee991659
+        eventTime: '2023-06-14T12:15:59.969746+02:00'
+        eventType: CustomerStateChangeEvent
+        event:
+          customer:
+            '@type': Customer
+            href: 'https://host:port/tmf-api/customerManagement/v5/customer/1140'
+            id: '1140'
+            status: CreditCheckDone
+      description: Message example for CustomerStateChangeEvent Notification
